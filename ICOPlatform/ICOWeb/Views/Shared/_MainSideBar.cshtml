@@ -1,0 +1,113 @@
+﻿@using BizzWebCore.Context;
+
+<div class="sidebar sidebar-main">
+    <div class="sidebar-content">
+        <!-- User menu -->
+        <div class="sidebar-user">
+            <div class="category-content">
+                <div class="media">
+                    <a href="/me/profile" class="media-left"><img src="~/Content/global/images/avatar_placeholder.jpg" class="img-circle img-sm" alt=""></a>
+                    <div class="media-body">
+                        <span class="media-heading text-semibold">
+                            <i class="glyphicon glyphicon-certificate"></i>&nbsp;
+                            @ApplicationContext.CurrentUsername
+                        </span>
+                        <div class="text-size-mini text-muted">
+                            <i class="glyphicon glyphicon-star-empty"></i>&nbsp;
+                            @*   &nbsp;@ApplicationContext.CurrentUser.City , @ApplicationContext.CurrentUser.CountryCode*@
+                            @ApplicationContext.CurrentLevelName
+                        </div>
+                    </div>
+                    <div class="media-right media-middle">
+                        <ul class="icons-list">
+                            <li>
+                                <a href="/me/setting"><i class="icon-cog3"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /user menu -->
+        <!-- Main navigation -->
+        <div class="sidebar-category sidebar-category-visible">
+            <div class="category-content no-padding">
+                <ul class="navigation navigation-main navigation-accordion">
+                    <!-- Main -->
+                    <li class="@*active*@"><a href="/Me/Dashboard"><i class="icon-home4"></i> <span>Dashboard</span></a></li>
+                    <li>
+                        <a href="/me/profile"><i class="icon-accessibility"></i> <span>Profile</span></a>
+                    </li>
+                    <!-- /main -->
+                    <!-- Forms -->
+                    <li class="navigation-header"><span>PH-GH </span> <i class="icon-menu" title="" data-original-title="Forms"></i></li>
+                    <li>
+                        <a href="/providehelp/index"><i class="icon-shield-notice"></i><span>Provide Help</span></a>
+                    </li>
+                    <li>
+                        <a href="/gethelp/"><i class="icon-search4"></i> <span>Get Help</span></a>
+                    </li>
+                    <li>
+                        <a href="/providehelp/transaction"><i class="icon-transmission"></i> <span>Transaction</span></a>
+                    </li>
+                    <!-- /forms -->
+                    <!-- Appearance -->
+                    <li class="navigation-header"><span>Coin</span> <i class="icon-menu" title="" data-original-title="Appearance"></i></li>
+                    <li>
+                        <a href="/btcwallet"><i class=" icon-credit-card"></i> <span>BTC Wallet</span></a>
+                    </li>
+                    <li>
+                        <a href="/global/opensoon"><i class=" icon-credit-card"></i> <span>NC Wallet</span></a>
+                    </li>
+                    <li>
+                        <a href="/global/opensoon"><i class="icon-transmission"></i> <span>Coin Transaction</span></a>
+                    </li>
+                    <!-- Layout -->
+                    <li class="navigation-header"><span>Token</span> <i class="icon-menu" title="" data-original-title="Layout options"></i></li>
+                    <li>
+                        <a href="/token/transfer"><i class="icon-transmission"></i> <span>Token Tranfer</span></a>
+                    </li>
+                    <li>
+                        <a href="/token/history"><i class=" icon-rotate-ccw3"></i> <span>Token History</span></a>
+                    </li>
+                    <!-- /layout -->
+                    <!-- Data visualization -->
+                    <li class="navigation-header"><span>Member</span> <i class="icon-menu" title="" data-original-title="Data visualization"></i></li>
+                    <li>
+                        <a href="/member/tree"><i class=" icon-tree6"></i> <span>Tree</span></a>
+                    </li>
+                    <li>
+                        <a href="/member/placement"><i class=" icon-paypal2"></i> <span>Placement</span></a>
+                    </li>
+                    <li>
+                        <a href="/member/referralLink"><i class="icon-transmission"></i> <span>Referral Link</span></a>
+                    </li>
+                    <li>
+                        <a href="/bonus"><i class="icon-rotate-ccw3"></i> <span>Bonus History</span></a>
+                    </li>
+                    <!-- /data visualization -->
+                    <!-- user -->
+                    <li class="navigation-header"><span>Me</span> <i class="icon-menu" title="" data-original-title="Extensions"></i></li>
+                    <li>
+                        <a href="/me/profile"><i class=" icon-user"></i> <span>Profile</span></a>
+                    </li>
+                    <li>
+                        <a href="/me/setting"><i class="icon-cog3"></i> <span>Setting</span></a>
+                    </li>
+                    <!-- /user -->
+                    <!-- Extensions -->
+                    <li class="navigation-header"><span>Support</span> <i class="icon-menu" title="" data-original-title="Extensions"></i></li>
+                    <li>
+                        <a href="#" onclick="sendMail();"><i class=" icon-envelop3"></i> <span>Mail Us</span></a>
+                    </li>
+                    <li>
+                        <a href="/global/opensoon"><i class=" icon-users4"></i> <span>Community</span></a>
+                    </li>
+                    <!-- /extensions -->
+                    <!-- Tables -->
+                </ul>
+            </div>
+        </div>
+        <!-- /main navigation -->
+    </div>
+</div>

@@ -216,6 +216,8 @@
     <Content Include="template\icons\summernote\summernote.eot" />
     <Content Include="template\icons\summernote\summernote.ttf" />
     <Content Include="template\icons\summernote\summernote.woff" />
+    <Content Include="Views\Shared\_MainNavBar.cshtml" />
+    <Content Include="Views\Shared\_MainSideBar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
