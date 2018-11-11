@@ -61,6 +61,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\Extra\PropertyError.cs" />
+    <Compile Include="Infrastructures\Constants\ResultCode.cs" />
+    <Compile Include="Messages\Base\BaseListResponse.cs" />
+    <Compile Include="Messages\Base\BaseRequest.cs" />
+    <Compile Include="Messages\Base\BaseResponse.cs" />
+    <Compile Include="Messages\Base\BaseSingleRepsponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -76,7 +81,10 @@
     <Compile Include="Repositories\Base\IRepository.cs" />
     <Compile Include="Repositories\Base\Repository.cs" />
     <Compile Include="Services\Base\BaseService.cs" />
+    <Compile Include="Utils\Encrypt\HashHelper.cs" />
+    <Compile Include="Utils\Encrypt\HMACHelper.cs" />
     <Compile Include="Utils\Encrypt\SaltHelper.cs" />
+    <Compile Include="Utils\Types\TypeHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ICOCore.Entities.Extra
 {
-    class PropertyError
+    public class PropertyError
     {
         public PropertyError() { }
         public PropertyError(string propertyName, string errorMessage)
