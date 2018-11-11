@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace ICOCore.Services.Base
 {
-    class BaseService
+    public class BaseService
     {
         protected InvestmentDataContext _dataContext;
 

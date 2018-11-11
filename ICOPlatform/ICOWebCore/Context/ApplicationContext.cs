@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Web;
 using System.Web.Security;
+using ICOCore.Repositories.Base;
+using ICOServices.Implementations;
 
 namespace ICOWebCore.Context
 {
@@ -10,10 +12,6 @@ namespace ICOWebCore.Context
         {
             get
             {
-                //if (!HttpContext.Current.User.Identity.IsAuthenticated)
-                //{
-                //    return null;
-                //}
                 if (HttpContext.Current.Session[ApplicationConstant.Session.SESSION_USER] == null)
                 {
                     string username = HttpContext.Current.User.Identity.Name;

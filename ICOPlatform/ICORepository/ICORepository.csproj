@@ -42,6 +42,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Implementations\Users\AccountRepository.cs" />
+    <Compile Include="Implementations\Users\UserInfoRepository.cs" />
+    <Compile Include="Implementations\Users\UserLevelRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

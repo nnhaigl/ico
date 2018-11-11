@@ -41,8 +41,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Context\ApplicationConstant.cs" />
     <Compile Include="Context\ApplicationContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ICOCore\ICOCore.csproj">
+      <Project>{5e98300d-abee-4f5a-aab2-c90d24d52cbb}</Project>
+      <Name>ICOCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ICOServices\ICOServices.csproj">
+      <Project>{3C45494F-C52A-4E59-8F97-6EB648E057C5}</Project>
+      <Name>ICOServices</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
