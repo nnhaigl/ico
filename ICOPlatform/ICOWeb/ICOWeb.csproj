@@ -236,6 +236,20 @@
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ICORepository\ICORepository.csproj">
+      <Project>{de0b4070-4c06-4330-aecb-ab1a5bf330f8}</Project>
+      <Name>ICORepository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ICOServices\ICOServices.csproj">
+      <Project>{3c45494f-c52a-4e59-8f97-6eb648e057c5}</Project>
+      <Name>ICOServices</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ICOWebCore\ICOWebCore.csproj">
+      <Project>{e0c830cf-db55-4669-a16e-8ce29e6e6dfe}</Project>
+      <Name>ICOWebCore</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
