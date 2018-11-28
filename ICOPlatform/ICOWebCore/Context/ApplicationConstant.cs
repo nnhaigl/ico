@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ICOWebCore.Context
 {
-    class ApplicationConstant
+    public class ApplicationConstant
     {
         public static class Session
         {
