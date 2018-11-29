@@ -1,0 +1,87 @@
+﻿@{
+    Layout = "~/Views/Shared/_layout2.cshtml";
+    string returnUrl = (string)TempData[ICOWebCore.Context.ApplicationConstant.Parameter.RETURN_URL];
+    //var isInProduction = ICOCore.Infrastructures.Constants.CommonConstants.IS_IN_PRODUCTION;
+}
+
+@section style {
+    <style>
+        .g-recaptcha {
+            position: relative;
+            width: 80% !important;
+        }
+
+        .rc-anchor-normal {
+            height: 70px;
+            width: 90% !important;
+        }
+
+        .login-form {
+            width: 345px !important;
+        }
+    </style>
+}
+
+<div ng-app="loginApp" ng-controller="userLoginCtrl" ng-init="init();" ng-keypress="loginKeyPress($event)">
+    <!-- Simple login form -->
+    <form action="#" autocomplete="off">
+        <div class="panel panel-body login-form" cg-busy="{promise:promise,message:'Please wait...',backdrop:true,delay:0,minDuration:100}">
+            <div class="text-center">
+                <div class="icon-object border-slate-300 text-slate-300"><i class="icon-reading"></i></div>
+                <h5 class="content-group">
+                    Login
+                    @*<small class="display-block">
+                            Enter your credentials below
+                        </small>*@
+                </h5>
+            </div>
+
+            <div ng-show="isLoginFailed == true" ng-cloak class="alert alert-warning ">
+                <span class="error">
+                    {{message}}
+                </span>
+            </div>
+
+            <div class="form-group has-feedback has-feedback-left">
+                <input ng-model="username" type="text" class="form-control" placeholder="Username">
+                <div class="form-control-feedback">
+                    <i class="icon-user text-muted"></i>
+                </div>
+            </div>
+
+            <div class="form-group has-feedback has-feedback-left">
+                <input ng-model="pass" type="password" class="form-control" placeholder="Password">
+                <div class="form-control-feedback">
+                    <i class="icon-lock2 text-muted"></i>
+                </div>
+            </div>
+
+            @*@if (isInProduction)
+            {
+                <div class="form-group has-feedback has-feedback-left">
+                    <div class="g-recaptcha"
+                         data-sitekey="6Ld1YgkUAAAAAFLjY1m2j9aJ7YPxyUTtaxiLTyV5"></div>
+                </div>
+            }*@
+
+            <div class="form-group">
+                <button ng-click="login();" type="button" class="btn btn-primary btn-block">
+                    Sign in <i class="icon-circle-right2 position-right"></i>
+                </button>
+            </div>
+
+            <div class="text-center">
+                <a href="#">Forgot password?</a>
+            </div>
+        </div>
+    </form>
+    <!-- /simple login form -->
+</div>
+
+@section script {
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    @Scripts.Render("~/front/js/user/login")
+}
+
+
+
