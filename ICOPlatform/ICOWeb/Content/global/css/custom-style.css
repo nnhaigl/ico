@@ -1,0 +1,68 @@
+﻿/*/*/
+
+*.disabled-page {
+    /*background-color: #dedede !important;*/
+    cursor: not-allowed;
+}
+
+.disabled-page2 {
+    background-color: #dedede !important;
+    cursor: not-allowed;
+}
+
+/*label.label-default {
+    font-size: 100%;
+}*/
+
+/*.form-control {
+    border-radius: 5px;
+}
+
+.round-xl {
+    border-radius: 5px;
+}*/
+
+.pointer {
+    cursor: pointer;
+}
+
+.field-validation-error {
+    background: url("/content/global/images/error_small.png") no-repeat scroll 0 2px rgba(0, 0, 0, 0);
+    color: #ff5a00;
+    padding-left: 18px;
+}
+
+.color-red {
+    color: red;
+}
+
+.display-none2 {
+    display: none;
+}
+
+.text-bold {
+    font-weight: bold;
+}
+
+.color-fade {
+    color: #999999;
+}
+
+.margin-5 {
+    margin-bottom: 5px !important;
+}
+
+.none-border {
+    border: none;
+}
+
+/* -------------------- CUSTOM TEMPLATE STYLE ----------------------- */
+
+.table-responsive {
+    overflow-x: inherit;
+}
+
+.sidebar {
+    width: 220px;
+}
+/* -------------------- /CUSTOM TEMPLATE STYLE ----------------------- */
