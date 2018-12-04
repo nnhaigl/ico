@@ -52,6 +52,7 @@
     <Reference Include="System.ComponentModel.Primitives, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ComponentModel.Primitives.4.3.0\lib\net45\System.ComponentModel.Primitives.dll</HintPath>
     </Reference>
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Linq" />
     <Reference Include="System.Runtime.Serialization" />
@@ -75,6 +76,7 @@
     <Compile Include="Entities\Extra\GoogleCaptchaResponse.cs" />
     <Compile Include="Entities\Extra\PropertyError.cs" />
     <Compile Include="Extensions\JsonDotNetResult.cs" />
+    <Compile Include="Infrastructures\Constants\CommonConstants.cs" />
     <Compile Include="Infrastructures\Constants\ResultCode.cs" />
     <Compile Include="Infrastructures\Enums\TreePositionEnum.cs" />
     <Compile Include="Messages\Base\BaseListResponse.cs" />

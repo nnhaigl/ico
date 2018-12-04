@@ -25,6 +25,11 @@ namespace ICOWeb
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            // User
+            bundles.Add(new ScriptBundle("~/front/js/User/login").Include(
+                "~/Content/app/front/User/login.js"
+               ));
         }
     }
 }
