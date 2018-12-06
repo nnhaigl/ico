@@ -3,6 +3,12 @@ using System.Web;
 using System.Web.Mvc;
 using ICOWebCore.Context;
 using ICOCore.Infrastructures.Constants;
+using ICOServices.Implementations;
+using ICOCore.Infrastructures.Enums;
+using System.Net;
+using Newtonsoft.Json;
+using ICOCore.Entities.Extra;
+using System.Web.Security;
 
 namespace ICOWeb.Controllers
 {
@@ -10,12 +16,14 @@ namespace ICOWeb.Controllers
     {
         private static readonly log4net.ILog _logger =
                 log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+        private AccountService _accountService = new AccountService();
         public ActionResult Login(string returnUrl)
         {
             TempData[ApplicationConstant.Parameter.RETURN_URL] = returnUrl;
             return View();
         }
-    
+
         public ActionResult Logout()
         {
             ApplicationContext.Logout();
@@ -23,15 +31,13 @@ namespace ICOWeb.Controllers
         }
 
         [HttpPost]
-        public JsonResult Login(string username, string password, string remember_me, string returnUrl, string g_recaptcha_response)
+        public JsonResult Login(string username, string password, string remember_me, string returnUrl)
         {
 
             TempData[ApplicationConstant.Parameter.RETURN_URL] = returnUrl;
             string captchaErrorMess = string.Empty;
 
             bool result = false;
-            var isCapChaSuccess = true;
-            var isCaptchaErr = false;
 
             bool isOnlyAcceptAdmin = CommonConstants.IS_ONLY_ACCEPT_ADMIN;
             if (isOnlyAcceptAdmin)
@@ -57,85 +63,24 @@ namespace ICOWeb.Controllers
                 }
                 else
                 {
-                    // ------------------ kiểm tra captcha
-                    bool isInProduction = CommonConstants.IS_IN_PRODUCTION;
 
-                    if (isInProduction)
+                    ViewBag.Success = true;
+                    // save cookie
+                    if (remember_me == "on")
                     {
-                        var response = g_recaptcha_response;  //Request["g-recaptcha-response"];
-                        if (string.IsNullOrWhiteSpace(response))
-                        {
-                            captchaErrorMess = "The response parameter is missing...";
-                            isCaptchaErr = true;
-                        }
-                        else
-                        {
-                            //secret that was generated in key value pair
-                            const string secret = "6Ld1YgkUAAAAAIbSQSBeM2uSV7sN5dUc3AWXV4-a";
-
-                            var client = new WebClient();
-                            var reply =
-                                client.DownloadString(
-                                    string.Format("https://www.google.com/recaptcha/api/siteverify?secret={0}&response={1}",
-                                secret, response));
-
-                            var captchaResponse = JsonConvert.DeserializeObject<GoogleCaptchaResponse>(reply);
-
-                            //when response is false check for the error message
-                            isCapChaSuccess = captchaResponse.Success;
-                            if (!isCapChaSuccess)
-                            {
-                                isCaptchaErr = captchaResponse.ErrorCodes.Count <= 0 ? false : true;
-
-                                if (isCaptchaErr)
-                                {
-                                    // nếu có lỗi capcha
-                                    var error = captchaResponse.ErrorCodes[0].ToLower();
-                                    switch (error)
-                                    {
-                                        case ("missing-input-secret"):
-                                            captchaErrorMess = "The secret parameter is missing.";
-                                            break;
-                                        case ("invalid-input-secret"):
-                                            captchaErrorMess = "The secret parameter is invalid or malformed.";
-                                            break;
-                                        case ("missing-input-response"):
-                                            captchaErrorMess = "The response parameter is missing.";
-                                            break;
-                                        case ("invalid-input-response"):
-                                            captchaErrorMess = "The response parameter is invalid or malformed.";
-                                            break;
-                                        default:
-                                            captchaErrorMess = "Error occured. Please try again";
-                                            break;
-                                    }
-                                }
-                            }
-                        }
+                        FormsAuthentication.SetAuthCookie(username, true);
+                    }
+                    else
+                    {
+                        FormsAuthentication.SetAuthCookie(username, false);
                     }
 
-                    if ((!isInProduction) || (isInProduction && !isCaptchaErr))
-                    {
-                        ViewBag.Success = true;
-                        // save cookie
-                        if (remember_me == "on")
-                        {
-                            FormsAuthentication.SetAuthCookie(username, true);
-                        }
-                        else
-                        {
-                            FormsAuthentication.SetAuthCookie(username, false);
-                        }
+                    result = true;
 
-                        result = true;
-
-                        //Lưu Application Context
-                        var userLevelService = new UserLevelService();
-                        user.LevelName = userLevelService.GetByCode(user.LevelCode).Name;
-                        ApplicationContext.CurrentUser = user;
-                    }
-
-                    // ------------------ /kiểm tra captcha
+                    //Lưu Application Context
+                    var userLevelService = new UserLevelService();
+                    user.LevelName = userLevelService.GetByCode(user.LevelCode).Name;
+                    ApplicationContext.CurrentUser = user;
                 }
             }
             catch (Exception ex)
@@ -143,7 +88,7 @@ namespace ICOWeb.Controllers
                 _logger.Error(ex);
             }
 
-            return Json(new { IsSuccess = result, CaptchaErrorMess = captchaErrorMess });
+            return Json(new { IsSuccess = result });
         }
 
     }

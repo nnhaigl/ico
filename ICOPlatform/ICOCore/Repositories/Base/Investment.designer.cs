@@ -9,7 +9,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ICOCore.Repositories.Base
+namespace ICOCore.Repositories
 {
 	using System.Data.Linq;
 	using System.Data.Linq.Mapping;

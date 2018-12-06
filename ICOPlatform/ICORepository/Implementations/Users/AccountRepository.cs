@@ -1,4 +1,5 @@
-﻿using ICOCore.Repositories.Base;
+﻿using ICOCore.Repositories;
+using ICOCore.Repositories.Base;
 using System;
 using System.Collections.Generic;
 using System.Linq;

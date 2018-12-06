@@ -79,6 +79,7 @@
     <Compile Include="Infrastructures\Constants\CommonConstants.cs" />
     <Compile Include="Infrastructures\Constants\ResultCode.cs" />
     <Compile Include="Infrastructures\Enums\TreePositionEnum.cs" />
+    <Compile Include="Infrastructures\Enums\UserReferralStatusEnum.cs" />
     <Compile Include="Messages\Base\BaseListResponse.cs" />
     <Compile Include="Messages\Base\BaseRequest.cs" />
     <Compile Include="Messages\Base\BaseResponse.cs" />

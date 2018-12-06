@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using ICOCore.Entities.Extra;
+using ICOCore.Repositories;
 using ICOCore.Repositories.Base;
 using System.Collections.Generic;
 

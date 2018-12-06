@@ -1,6 +1,6 @@
 ﻿using ICOCore.Infrastructures.Enums;
 
-namespace ICOCore.Repositories.Base
+namespace ICOCore.Repositories
 {
     public partial class UserInfo
     {
