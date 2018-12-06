@@ -72,14 +72,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dtos\Components\UserInfoDto.cs" />
     <Compile Include="Entities\Component\UserInfo.cs" />
+    <Compile Include="Entities\Extra\BTCRateWrapper.cs" />
     <Compile Include="Entities\Extra\GoogleCaptchaResponse.cs" />
     <Compile Include="Entities\Extra\PropertyError.cs" />
+    <Compile Include="Entities\UI\NadyTree.cs" />
     <Compile Include="Extensions\JsonDotNetResult.cs" />
     <Compile Include="Infrastructures\Constants\CommonConstants.cs" />
     <Compile Include="Infrastructures\Constants\ResultCode.cs" />
+    <Compile Include="Infrastructures\Enums\AccountStatusEnum.cs" />
+    <Compile Include="Infrastructures\Enums\ProvideHelpStatusEnum.cs" />
     <Compile Include="Infrastructures\Enums\TreePositionEnum.cs" />
     <Compile Include="Infrastructures\Enums\UserReferralStatusEnum.cs" />
+    <Compile Include="Infrastructures\Enums\UserWalletStatusEnum.cs" />
+    <Compile Include="Infrastructures\UserLevelConstant.cs" />
     <Compile Include="Messages\Base\BaseListResponse.cs" />
     <Compile Include="Messages\Base\BaseRequest.cs" />
     <Compile Include="Messages\Base\BaseResponse.cs" />
@@ -101,11 +108,19 @@
     </Compile>
     <Compile Include="Repositories\Base\IRepository.cs" />
     <Compile Include="Repositories\Base\Repository.cs" />
+    <Compile Include="ServicesAPIs\BTCServiceAPI.cs" />
     <Compile Include="Services\Base\BaseService.cs" />
+    <Compile Include="Utils\Common\CommonUtils.cs" />
     <Compile Include="Utils\Encrypt\HashHelper.cs" />
     <Compile Include="Utils\Encrypt\HMACHelper.cs" />
     <Compile Include="Utils\Encrypt\SaltHelper.cs" />
+    <Compile Include="Utils\Http\HttpConstant.cs" />
+    <Compile Include="Utils\Http\HttpUtils.cs" />
+    <Compile Include="Utils\Http\HttRequestData.cs" />
     <Compile Include="Utils\Types\TypeHelper.cs" />
+    <Compile Include="ViewModels\NadyTreeVM.cs" />
+    <Compile Include="ViewModels\UserDashboardVM.cs" />
+    <Compile Include="ViewModels\UserDetailVM.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />

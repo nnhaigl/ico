@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Implementations\Bonous\UserBonusInfoRepository.cs" />
     <Compile Include="Implementations\Users\AccountRepository.cs" />
     <Compile Include="Implementations\Users\UserInfoRepository.cs" />
     <Compile Include="Implementations\Users\UserLevelRepository.cs" />

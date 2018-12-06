@@ -35,8 +35,15 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\investmentico\BizzShipping\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Helpers">
       <HintPath>..\..\..\investmentico\BizzShipping\packages\Microsoft.AspNet.WebPages.3.1.2\lib\net45\System.Web.Helpers.dll</HintPath>
@@ -60,14 +67,19 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="APIs\BaseAdminAPIController.cs" />
+    <Compile Include="APIs\BaseFrontAPIController.cs" />
     <Compile Include="Context\ApplicationConstant.cs" />
     <Compile Include="Context\ApplicationContext.cs" />
     <Compile Include="Controllers\BaseFrontController.cs" />
+    <Compile Include="Filters\BaseAdminAuthenFilterAttribute.cs" />
     <Compile Include="Filters\BaseFrontAuthenFilterAttribute.cs" />
+    <Compile Include="Filters\ResponseHandler.cs" />
+    <Compile Include="Filters\WebAPIAuthenticateFilterAttribute.cs" />
+    <Compile Include="Filters\WebAPIExceptionFilterAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -80,6 +92,9 @@
       <Name>ICOServices</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -127,10 +127,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API\BaseFrontAPIController.cs" />
+    <Compile Include="API\UserApiController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -138,6 +141,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\app\front\Me\profile.js" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -4338,10 +4342,13 @@
     <Content Include="Views\Shared\_MainSideBar.cshtml" />
     <Content Include="Views\User\Login.cshtml" />
     <Content Include="Views\Shared\_Layout2.cshtml" />
+    <Content Include="Views\Me\Dashboard.cshtml" />
+    <Content Include="Views\Me\Profile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\UserApi\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

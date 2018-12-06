@@ -1,0 +1,373 @@
+﻿@{
+    var currUsername = ICOWebCore.Context.ApplicationContext.CurrentUsername;
+}
+
+@section PageHeader {
+    <div class="page-header page-header-default">
+        <div class="breadcrumb-line">
+            <ul class="breadcrumb">
+                <li><a href="/me/dashboard"><i class="icon-home2 position-left"></i> Home</a></li>
+                <li class="active">Me</li>
+                <li class="active">Profile</li>
+            </ul>
+        </div>
+    </div>
+}
+
+@section style {
+    <style>
+        .panel-heading > h6 {
+            display: table-cell;
+            text-align: center;
+            width: 1%;
+            font-weight: bold !important;
+            border-bottom: 2px solid #0094ff;
+            padding-bottom: 5px;
+        }
+
+        .control-label {
+            font-weight: bold;
+        }
+
+        .control-detail {
+            background-color: #fff;
+            background-image: none;
+            color: #333333;
+            display: block;
+            font-size: 13px;
+            height: 36px;
+            line-height: 1.53846;
+            padding: 7px 12px;
+        }
+
+        .label {
+            line-height: 1.33846;
+        }
+    </style>
+}
+
+<div ng-controller="profileCtrl" ng-init="init();" id="divProfileCtrl" class="display-none2" cg-busy="{promise:promise,message:'Please wait...',backdrop:true,delay:0,minDuration:500}">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="panel panel-flat">
+                <div class="panel-heading">
+                    <h6 class="panel-title text-semibold text-center">
+                        <span class="text-center ">
+                            @currUsername.ToUpper()
+                        </span>
+                        @*<a class="heading-elements-toggle"><i class="icon-more"></i></a>*@
+                        @*<a class="heading-elements-toggle"><i class="glyphicon glyphicon-edit pointer"></i></a>*@
+                    </h6>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="thumbnail">
+                            <div class="thumb thumb-rounded thumb-slide">
+                                <img src="~/Content/global/images/avatar_placeholder.jpg" alt="">
+                                <div class="caption">
+                                    <span>
+                                        @*<a href="#" class="btn bg-success-400 btn-icon btn-xs" data-popup="lightbox"><i class="icon-plus2"></i></a>*@
+                                        <a href="#" class="btn bg-success-400 btn-icon btn-xs">
+                                            <i class="icon-link"></i>
+                                        </a>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                &nbsp;
+                            </div>
+                            <div class="row text-bold margin-5 ">
+                                <div class="col-sm-5 col-sm-offset-1 color-fade">Indentify</div>
+                                <div class="col-sm-6">
+                                    <span ng-show="basicInfo.IdentifyStatus == 1" class="label bg-purple">Verified</span>
+                                    <span ng-show="basicInfo.IdentifyStatus == 0" class="label label-info">Not Verified</span>
+                                </div>
+                            </div>
+                            <div class="row text-bold margin-5 ">
+                                <div class="col-sm-5 col-sm-offset-1 color-fade">PID</div>
+                                <div class="col-sm-6">
+                                    <span ng-show="basicInfo.IsVerifiedPID == true" class="label bg-purple">Verified</span>
+                                    <span ng-show="basicInfo.IsVerifiedPID == false" class="label label-info">Not Verified</span>
+                                </div>
+                            </div>
+                            <div class="row text-bold margin-5 ">
+                                <div class="col-sm-5 col-sm-offset-1 color-fade">Mobile</div>
+                                <div class="col-sm-6">
+                                    <span ng-show="basicInfo.IsVerifiedMobile == true" class="label bg-purple">Verified</span>
+                                    <span ng-show="basicInfo.IsVerifiedMobile == false" class="label label-info">Not Verified</span>
+                                </div>
+                            </div>
+                            <div class="caption text-center">
+                                <h6 class="text-semibold no-margin">
+                                    @currUsername<small class="display-block">
+                                        {{userLevel.Name}}
+                                    </small>
+                                </h6>
+                                <ul class="icons-list mt-15">
+                                    <li><a href="#" data-popup="tooltip" title="" data-original-title="Google Drive"><i class="icon-google-drive"></i></a></li>
+                                    <li><a href="#" data-popup="tooltip" title="" data-original-title="Twitter"><i class="icon-twitter"></i></a></li>
+                                    <li><a href="#" data-popup="tooltip" title="" data-original-title="Github"><i class="icon-github"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="collapse in" id="william" aria-expanded="true" style="">
+                            <div class="contact-details">
+                                <ul class="list-extended list-unstyled list-icons">
+                                    <li><i class="icon-pin position-left"></i> Viet Nam</li>
+                                    <li><i class="icon-user-tie position-left"></i>{{userLevel.Name}}</li>
+                                    <li>
+                                        <i class="icon-phone position-left"></i>
+                                        <span ng-show="basicInfo.Mobile != '' && basicInfo.Mobile != null ">(+ {{country.PhoneCode}} ) {{basicInfo.Mobile}}</span>
+                                        <span ng-show="basicInfo.Mobile == '' || basicInfo.Mobile == null ">
+                                            (+&nbsp;{{country.PhoneCode}}) - {{country.Name}}
+                                        </span>
+                                    </li>
+                                    <li><i class="icon-mail5 position-left"></i> <a href="#">{{basicInfo.Email}}</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="panel panel-flat">
+                <div class="panel-heading">
+                    <h6 class="panel-title text-semibold text-center">
+                        <span class="text-center ">ABOUT</span>
+                        @*<a class="heading-elements-toggle"><i class="icon-more"></i></a>*@
+                        @*<a class="heading-elements-toggle"><i class="glyphicon glyphicon-edit pointer"></i></a>*@
+                    </h6>
+                    @*<div class="heading-elements">
+                            <ul class="icons-list">
+                                    <li title="Edit">
+                                        <i class="glyphicon glyphicon-edit pointer"></i>
+                                    </li>
+                                </ul>
+                        </div>*@
+                </div>
+                <div class="panel-body">
+
+                    <form class="form-horizontal" action="#" ng-show="mode == 'view'">
+                        <fieldset class="content-group">
+                            <legend class="text-bold">
+                                Basic Info - <i ng-click="changeMode('edit')" class="glyphicon glyphicon-edit pointer"></i>
+                            </legend>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3 col-sm-offset-1">Full Name</label>
+                                <div class="col-sm-8">
+                                    <span class="control-detail">{{basicInfo.FullName}}</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3 col-sm-offset-1">Gender</label>
+                                <div class="col-sm-8">
+                                    <span class="control-detail" ng-show="basicInfo.Gender == true">MALE</span>
+                                    <span class="control-detail" ng-show="basicInfo.Gender == false">FEMALE</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3 col-sm-offset-1">Birthday</label>
+                                <div class="col-sm-8">
+                                    <span class="control-detail">{{basicInfo.DateOfBirth | date : 'dd/MM/yyyy'}}</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3 col-sm-offset-1">Addresss</label>
+                                <div class="col-sm-8">
+                                    <span class="control-detail">{{basicInfo.Address}}</span>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+
+                    <form class="form-horizontal" action="#" ng-show="mode == 'edit'">
+                        <fieldset class="content-group">
+                            <legend class="text-bold">
+                                Basic Info - <i class="glyphicon glyphicon-edit pointer"></i>
+                            </legend>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3 col-sm-offset-1">Full Name</label>
+                                <div class="col-sm-8">
+                                    <input ng-model="basicInfo.FullName" class="form-control" type="text">
+                                    <span ng-repeat="item in basicInfoErrorMessages" class="field-validation-error" ng-if="item.PropertyName=='FullName'">{{item.ErrorMessage}}</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3 col-sm-offset-1">Gender</label>
+                                <div class="col-sm-8">
+                                    @*<select ng-model="basicInfo.Gender" class="form-control">
+                                            <option value="true">MALE</option>
+                                            <option value="false">FEMALE</option>
+                                        </select>*@
+                                    <select ng-model="basicInfo.Gender" ng-options="item.ID as item.Title for item in Genders" class="form-control"></select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3 col-sm-offset-1">Birthday</label>
+                                <div class="col-sm-8">
+                                    <input ng-model="basicInfo.DOB" class="form-control" type="text">
+                                    <span ng-repeat="item in basicInfoErrorMessages" class="field-validation-error" ng-if="item.PropertyName=='DOB'">{{item.ErrorMessage}}</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3 col-sm-offset-1">Address</label>
+                                <div class="col-sm-8">
+                                    <input ng-model="basicInfo.Address" class="form-control" type="text">
+                                    <span ng-repeat="item in basicInfoErrorMessages" class="field-validation-error" ng-if="item.PropertyName=='Address'">{{item.ErrorMessage}}</span>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <div class="text-right">
+                            <button ng-click="editBasicInfo();" type="button" class="btn btn-primary">UPDATE <i class="icon-arrow-right14 position-right"></i></button>
+                            <button ng-click="changeMode('view')" type="button" class="btn btn-default btn-ladda btn-ladda-spinner ladda-button" data-spinner-color="#333" data-style="slide-down">
+                                <span class="ladda-label">CANCEL</span><span class="ladda-spinner"></span>
+                            </button>
+                        </div>
+                    </form>
+
+                    <form class="form-horizontal" action="#">
+                        <fieldset class="content-group">
+                            <legend class="text-bold">
+                                Account Info
+                            </legend>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3 col-sm-offset-1">Username</label>
+                                <div class="col-sm-8">
+                                    <span class="control-detail">{{accountInfo.Username}}</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3 col-sm-offset-1">Mobile Phone</label>
+                                <div class="col-sm-8">
+                                    <span ng-show="basicInfo.Mobile != '' && basicInfo.Mobile != null " class="control-detail">(+ {{country.PhoneCode}} ) {{basicInfo.Mobile}}</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3 col-sm-offset-1">Email address</label>
+                                <div class="col-sm-8">
+                                    <span class="control-detail">{{basicInfo.Email}}</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3 col-sm-offset-1">PID</label>
+                                <div class="col-sm-8">
+                                    <span class="control-detail">{{basicInfo.PID}}</span>
+                                </div>
+                            </div>
+                            <div class="form-group text-danger">
+                                <label class="control-label col-sm-3 col-sm-offset-1">2 FA</label>
+                                <div class="col-sm-8 ">
+                                    @*<span class="control-detail text-danger">{{accountInfo.Password2FA}}</span>*@
+                                    <span class="control-detail">
+                                        <a ng-click="showModalPassword2FA(true);" href="#">CHANGE 2 FA</a>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3 col-sm-offset-1">Password</label>
+                                <div class="col-sm-8">
+                                    <span class="control-detail">
+                                        <a ng-click="showModalPassword(true);" href="#">CHANGE PASSWORD</a>
+                                    </span>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- change Password  form -->
+        <div id="modal_changePass" class="modal fade">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content login-form">
+                    <!-- Form -->
+                    <div class="modal-body">
+                        <div class="text-center">
+                            <div class="icon-object border-warning text-warning"><i class="icon-spinner11"></i></div>
+                            <h5 class="content-group">
+                                New Password
+                                <small class="display-block">Please consider changing toyour new secure password</small>
+                            </h5>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <input ng-model="passwordInfo.OldPassword" type="password" class="form-control" placeholder="Your old password">
+                            <span ng-repeat="item in passErrorMessages" class="field-validation-error" ng-if="item.PropertyName=='OldPassword'">{{item.ErrorMessage}}</span>
+                            <div class="form-control-feedback">
+                                @*<i class="icon-key"></i>*@
+                            </div>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <input ng-model="passwordInfo.NewPassword" type="password" class="form-control" placeholder="New password">
+                            <span ng-repeat="item in passErrorMessages" class="field-validation-error" ng-if="item.PropertyName=='NewPassword'">{{item.ErrorMessage}}</span>
+                            <div class="form-control-feedback">
+                                @*<i class="icon-mail5 text-muted"></i>*@
+                            </div>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <input ng-model="passwordInfo.ConfirmPassword" type="password" class="form-control" placeholder="New password confirmation">
+                            <span ng-repeat="item in passErrorMessages" class="field-validation-error" ng-if="item.PropertyName=='ConfirmPassword'">{{item.ErrorMessage}}</span>
+                            <div class="form-control-feedback">
+                                @*<i class="icon-mail5 text-muted"></i>*@
+                            </div>
+                        </div>
+
+                        <button ng-click="changePassword();" type="submit" class="btn bg-blue btn-block">Update <i class="icon-circle-right2 position-right"></i></button>
+                        <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Cancel</button>
+                    </div>
+                    <!-- /form -->
+                </div>
+            </div>
+        </div>
+        <!-- /change password  form -->
+        <!-- change 2 FA  form -->
+        <div id="modal_change2FA" class="modal fade">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content login-form">
+                    <!-- Form -->
+                    <div class="modal-body">
+                        <div class="text-center">
+                            <div class="icon-object border-warning text-warning"><i class="icon-spinner11"></i></div>
+                            <h5 class="content-group">
+                                New 2 FA
+                                <small class="display-block">Please consider changing your new 2 FA</small>
+                            </h5>
+                        </div>
+                        <div ng-show="accountInfo.Password2FA != ''" class="form-group has-feedback">
+                            <input ng-model="passwordInfo.OldPassword" type="password" class="form-control" placeholder="Your old 2 FA">
+                            <span ng-repeat="item in passErrorMessages" class="field-validation-error" ng-if="item.PropertyName=='OldPassword'">{{item.ErrorMessage}}</span>
+                            <div class="form-control-feedback">
+                            </div>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <input ng-model="passwordInfo.NewPassword" type="password" class="form-control" placeholder="New 2 FA">
+                            <span ng-repeat="item in passErrorMessages" class="field-validation-error" ng-if="item.PropertyName=='NewPassword'">{{item.ErrorMessage}}</span>
+                            <div class="form-control-feedback">
+                            </div>
+                        </div>
+                        <div class="form-group has-feedback">
+                            <input ng-model="passwordInfo.ConfirmPassword" type="password" class="form-control" placeholder="New 2 FA Confirmation">
+                            <span ng-repeat="item in passErrorMessages" class="field-validation-error" ng-if="item.PropertyName=='ConfirmPassword'">{{item.ErrorMessage}}</span>
+                            <div class="form-control-feedback">
+                            </div>
+                        </div>
+                        <button ng-click="changePassword2FA();" type="submit" class="btn bg-blue btn-block">Update <i class="icon-circle-right2 position-right"></i></button>
+                        <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Cancel</button>
+                    </div>
+                    <!-- /form -->
+                </div>
+            </div>
+        </div>
+        <!-- /change 2 FA  form -->
+    </div>
+
+</div>
+
+@section script {
+    @Scripts.Render("~/front/js/me/profile")
+}

@@ -13,8 +13,8 @@ namespace ICOServices.Implementations
 {
     public class UserLevelService : BaseService
     {
-        private static readonly log4net.ILog _logger =
-               log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        //private static readonly log4net.ILog _logger =
+        //       log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         private UserLevelRepository _repository;
 
@@ -42,7 +42,6 @@ namespace ICOServices.Implementations
             }
             catch (Exception ex)
             {
-                _logger.Error(ex);
                 response.IsSuccess = false;
             }
             return response;

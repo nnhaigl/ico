@@ -1,0 +1,19 @@
+﻿@section PageHeader {
+    <div class="page-header page-header-default">
+        <div class="breadcrumb-line">
+            <ul class="breadcrumb">
+                <li><a href="/me/dashboard"><i class="icon-home2 position-left"></i> Home</a></li>
+                <li class="active">Me</li>
+                <li class="active">Dashboard</li>
+            </ul>
+        </div>
+    </div>
+}
+
+<div @*ng-controller="dashboardCtrl" ng-init="init();"*@ id="divDashboardCtrl" class="display-none2 " cg-busy="{promise:promise,message:'Please wait...',backdrop:true,delay:0,minDuration:500}">
+ 
+</div>
+
+@section script {
+    @Scripts.Render("~/front/js/me/dashboard")
+}

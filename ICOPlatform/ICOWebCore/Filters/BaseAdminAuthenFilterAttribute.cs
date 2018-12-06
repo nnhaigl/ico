@@ -1,24 +1,30 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
+using System.Collections.Specialized;
 using System.Web;
+using System.Web.Security;
+using System.Net;
 using System;
 using ICOWebCore.Context;
 
 namespace ICOWebCore.Filters
 {
-    class BaseFrontAuthenFilterAttribute : FilterAttribute, IAuthorizationFilter
+    public class BaseAdminAuthenFilterAttribute : FilterAttribute, IAuthorizationFilter
     {
 
+        private const string _AREA_NAME = "Global";
 
+        private string area = string.Empty;
         private string controller = string.Empty;
         private string action = string.Empty;
         private bool isPostMethod = false;
         private bool isAjaxRequest = false;
 
-        public void OnAuthorization(AuthorizationContext filterContext)
+        public void OnAuthorization(AuthorizationContext filterContext) // ham nay se duoc chay bat cu o trang nao
         {
             try
             {
+
                 isPostMethod = filterContext.HttpContext.Request.HttpMethod == "POST";
                 // nếu là Ajax request thì Header của HttpReqeust sẽ có key là X-Requested-With
                 // với value là XMLHttpRequest 
@@ -35,25 +41,13 @@ namespace ICOWebCore.Filters
                 if (viewData.Values["Action"] != null)
                     action = viewData.Values["Action"].ToString().ToLower();
 
-
-                //if (controller == "user")
-                //{
-                //    if (action == "dashboard")
-                //    {
-                //        return;
-                //    }
-                //}
-
                 var user = ApplicationContext.CurrentUser;
-                if (user == null) // chưa login
+                var acc = ApplicationContext.CurrentAccount;
+
+                if (user == null || acc == null || !acc.IsSuper.HasValue || !acc.IsSuper.Value) // chưa login Hoặc không phải super admin
                 {
                     // mặc dù chưa login nhưng xóa tất cả session (nếu có)
                     ApplicationContext.Logout();
-                    //RedirectToRouteResult actionResult = new RedirectToRouteResult(
-                    //                             new RouteValueDictionary {
-                    //                                              { "Controller", "User" },
-                    //                                              { "Action", "login"}});
-                    //filterContext.Result = actionResult;
 
                     string returnUrl = string.Empty;
                     try
@@ -65,6 +59,7 @@ namespace ICOWebCore.Filters
                     RouteValueDictionary redirectTargetDictionary = new RouteValueDictionary();
                     redirectTargetDictionary.Add("action", "login");
                     redirectTargetDictionary.Add("controller", "User");
+                    redirectTargetDictionary.Add("Area", "");
                     redirectTargetDictionary.Add(ApplicationConstant.Parameter.RETURN_URL, returnUrl);
                     filterContext.Result = new RedirectToRouteResult(redirectTargetDictionary);
 
