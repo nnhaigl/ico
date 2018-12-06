@@ -1,6 +1,7 @@
 ﻿using ICOCore.Entities.Extra;
 using ICOCore.Messages.Base;
 using ICOCore.Messages.Requests;
+using ICOCore.Repositories;
 using ICOCore.Repositories.Base;
 using ICOCore.Services.Base;
 using ICOCore.Utils.Encrypt;
@@ -16,8 +17,8 @@ namespace ICOServices.Implementations
 {
     public class AccountService : BaseService
     {
-        private static readonly log4net.ILog _logger =
-              log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        //private static readonly log4net.ILog _logger =
+        //      log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         private AccountRepository _repository;
         private UserInfoRepository _userInfoRepository;
@@ -48,7 +49,7 @@ namespace ICOServices.Implementations
             }
             catch (Exception ex)
             {
-                _logger.Error(ex);
+                //_logger.Error(ex);
                 response.IsSuccess = false;
             }
             return response;
@@ -162,7 +163,7 @@ namespace ICOServices.Implementations
             }
             catch (Exception ex)
             {
-                _logger.Error(ex);
+                //_logger.Error(ex);
                 response.IsSuccess = false;
             }
 
@@ -225,7 +226,7 @@ namespace ICOServices.Implementations
             }
             catch (Exception ex)
             {
-                _logger.Error(ex);
+                //_logger.Error(ex);
                 response.IsSuccess = false;
             }
 
@@ -278,7 +279,7 @@ namespace ICOServices.Implementations
             }
             catch (Exception ex)
             {
-                _logger.Error(ex);
+                //_logger.Error(ex);
                 response.IsSuccess = false;
             }
 
@@ -330,7 +331,7 @@ namespace ICOServices.Implementations
             }
             catch (Exception ex)
             {
-                _logger.Error(ex);
+                //_logger.Error(ex);
                 response.IsSuccess = false;
             }
 

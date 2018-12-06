@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Web;
 using System.Web.Security;
-using ICOCore.Repositories.Base;
+using ICOCore.Repositories;
 using ICOServices.Implementations;
 
 namespace ICOWebCore.Context

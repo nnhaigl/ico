@@ -1,4 +1,5 @@
-﻿using ICOCore.Repositories.Base;
+﻿using ICOCore.Repositories;
+using ICOCore.Repositories.Base;
 
 namespace ICORepository.Implementations.Users
 {
