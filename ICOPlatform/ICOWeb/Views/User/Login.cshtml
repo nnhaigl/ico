@@ -1,7 +1,7 @@
 ﻿@{
     Layout = "~/Views/Shared/_layout2.cshtml";
     string returnUrl = (string)TempData[ICOWebCore.Context.ApplicationConstant.Parameter.RETURN_URL];
-    var isInProduction = ICOCore.Infrastructures.Constants.CommonConstants.IS_IN_PRODUCTION;
+    //var isInProduction = ICOCore.Infrastructures.Constants.CommonConstants.IS_IN_PRODUCTION;
 }
 
 @section style {
@@ -56,13 +56,13 @@
                 </div>
             </div>
 
-            @if (isInProduction)
+            @*@if (isInProduction)
             {
                 <div class="form-group has-feedback has-feedback-left">
                     <div class="g-recaptcha"
                          data-sitekey="6Ld1YgkUAAAAAFLjY1m2j9aJ7YPxyUTtaxiLTyV5"></div>
                 </div>
-            }
+            }*@
 
             <div class="form-group">
                 <button ng-click="login();" type="button" class="btn btn-primary btn-block">
