@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ICOCore.Infrastructures.Enums
 {
-    ublic enum ProvideHelpStatusEnum : byte
+    public enum ProvideHelpStatusEnum : byte
     {
         RUNNING = 0,
         END = 1

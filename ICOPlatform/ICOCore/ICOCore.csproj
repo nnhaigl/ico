@@ -34,6 +34,9 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=4.2.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.4.2.1\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -72,6 +75,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Dtos\Components\CfgProvideHelpPolicyDto.cs" />
+    <Compile Include="Dtos\Components\CfgTokenDemandDto.cs" />
+    <Compile Include="Dtos\Components\ProvideHelpDto.cs" />
     <Compile Include="Dtos\Components\UserInfoDto.cs" />
     <Compile Include="Entities\Component\UserInfo.cs" />
     <Compile Include="Entities\Extra\BTCRateWrapper.cs" />
@@ -82,6 +88,7 @@
     <Compile Include="Infrastructures\Constants\CommonConstants.cs" />
     <Compile Include="Infrastructures\Constants\ResultCode.cs" />
     <Compile Include="Infrastructures\Enums\AccountStatusEnum.cs" />
+    <Compile Include="Infrastructures\Enums\ProvideHelpCalculateStatusEnum.cs" />
     <Compile Include="Infrastructures\Enums\ProvideHelpStatusEnum.cs" />
     <Compile Include="Infrastructures\Enums\TreePositionEnum.cs" />
     <Compile Include="Infrastructures\Enums\UserReferralStatusEnum.cs" />
@@ -92,6 +99,7 @@
     <Compile Include="Messages\Base\BaseResponse.cs" />
     <Compile Include="Messages\Base\BaseSingleRepsponse.cs" />
     <Compile Include="Messages\Requests\PasswordRequest.cs" />
+    <Compile Include="Messages\Requests\UserPlacementRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -99,6 +107,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Queries\Base\BaseQuery.cs" />
+    <Compile Include="Queries\Components\ProvideHelpQuery.cs" />
     <Compile Include="Queries\Components\UserInfoQuery.cs" />
     <Compile Include="Repositories\Base\Extras.cs" />
     <Compile Include="Repositories\Base\Investment.designer.cs">
@@ -111,12 +120,18 @@
     <Compile Include="ServicesAPIs\BTCServiceAPI.cs" />
     <Compile Include="Services\Base\BaseService.cs" />
     <Compile Include="Utils\Common\CommonUtils.cs" />
+    <Compile Include="Utils\Encoder\EncoderUtils.cs" />
+    <Compile Include="Utils\Encoder\UserDetailQuery.cs" />
     <Compile Include="Utils\Encrypt\HashHelper.cs" />
     <Compile Include="Utils\Encrypt\HMACHelper.cs" />
     <Compile Include="Utils\Encrypt\SaltHelper.cs" />
     <Compile Include="Utils\Http\HttpConstant.cs" />
     <Compile Include="Utils\Http\HttpUtils.cs" />
     <Compile Include="Utils\Http\HttRequestData.cs" />
+    <Compile Include="Utils\Mail\MailConstants.cs" />
+    <Compile Include="Utils\Mail\Mailer.cs" />
+    <Compile Include="Utils\Mail\MailUtils.cs" />
+    <Compile Include="Utils\MapperUtils.cs" />
     <Compile Include="Utils\Types\TypeHelper.cs" />
     <Compile Include="ViewModels\NadyTreeVM.cs" />
     <Compile Include="ViewModels\UserDashboardVM.cs" />

@@ -319,11 +319,5 @@ namespace ICOWebCore.Filters
             }
         }
 
-        public async Task Post()
-        {
-            dynamic obj = await this._actionContext.Request.Content.ReadAsAsync<JObject>();
-            var y = obj.var1;
-        }
-
     }
 }

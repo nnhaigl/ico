@@ -43,6 +43,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Implementations\Bonous\UserBonusInfoRepository.cs" />
+    <Compile Include="Implementations\Categories\CountryRepository.cs" />
+    <Compile Include="Implementations\Investment\ProvideHelpRepository.cs" />
     <Compile Include="Implementations\Users\AccountRepository.cs" />
     <Compile Include="Implementations\Users\UserInfoRepository.cs" />
     <Compile Include="Implementations\Users\UserLevelRepository.cs" />

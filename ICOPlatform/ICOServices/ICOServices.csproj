@@ -56,7 +56,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Implementations\AccountService.cs" />
+    <Compile Include="Implementations\CountryService.cs" />
     <Compile Include="Implementations\LogMatchingCommissionService.cs" />
+    <Compile Include="Implementations\ProvideHelpService.cs" />
     <Compile Include="Implementations\UserBonusInfoService.cs" />
     <Compile Include="Implementations\UserLevelService.cs" />
     <Compile Include="Implementations\UserService.cs" />

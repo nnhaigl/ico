@@ -18,6 +18,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Newtonsoft.Json;
+using ICOCore.Queries.Components;
+using ICOCore.Messages.Requests;
+using ICOCore.Utils.Encoder;
+using ICOCore.Utils.Mail;
 
 namespace ICOServices.Implementations
 {
@@ -1182,12 +1186,12 @@ namespace ICOServices.Implementations
         /// <param name="usernameToPlaceInto"></param>
         /// <param name="_context"></param>
         /// <returns></returns>
-        public TreePositionEnum GetPosition(UserInfo referralUserInfo, string usernameToPlaceInto, BizzDataContext _context)
+        public TreePositionEnum GetPosition(UserInfo referralUserInfo, string usernameToPlaceInto, InvestmentDataContext _context)
         {
             return GetPositionRecursive(referralUserInfo, usernameToPlaceInto, _context);
         }
 
-        public TreePositionEnum GetPositionRecursive(UserInfo referralUserInfo, string username, BizzDataContext _context)
+        public TreePositionEnum GetPositionRecursive(UserInfo referralUserInfo, string username, InvestmentDataContext _context)
         {
             UserInfo user = _dataContext.UserInfos.Single(x => x.Username == username);
             if (user.ParentUsername == referralUserInfo.Username)
@@ -1203,7 +1207,7 @@ namespace ICOServices.Implementations
             }
         }
 
-        public void AddTotalMember(UserInfo currentUser, UserInfo parent, TreePositionEnum position, BizzDataContext _context)
+        public void AddTotalMember(UserInfo currentUser, UserInfo parent, TreePositionEnum position, InvestmentDataContext _context)
         {
             if (TreePositionEnum.LEFT == position)
                 parent.TotalLeft += 1;
@@ -1216,7 +1220,7 @@ namespace ICOServices.Implementations
             this.AddTotalMemberRecursive(parent, upParent, _context);
         }
 
-        public void AddTotalMemberRecursive(UserInfo currentUser, UserInfo parent, BizzDataContext _context)
+        public void AddTotalMemberRecursive(UserInfo currentUser, UserInfo parent, InvestmentDataContext _context)
         {
             // kiểm tra xem nhánh trái hay phải
             if (parent.LeftPosId == currentUser.Id)
@@ -1232,14 +1236,14 @@ namespace ICOServices.Implementations
             }
         }
 
-        public bool IsInTreeSystem(UserInfo rootUser, string usernameToCheck, BizzDataContext _context)
+        public bool IsInTreeSystem(UserInfo rootUser, string usernameToCheck, InvestmentDataContext _context)
         {
             if (null == _context)
-                _context = new BizzDataContext();
+                _context = new InvestmentDataContext();
             return IsInTreeSystemRecursive(rootUser, usernameToCheck, _context);
         }
 
-        public bool IsInTreeSystemRecursive(UserInfo rootUser, string currentNodeUsername, BizzDataContext _context)
+        public bool IsInTreeSystemRecursive(UserInfo rootUser, string currentNodeUsername, InvestmentDataContext _context)
         {
             UserInfo currentNode = _dataContext.UserInfos.Single(x => x.Username == currentNodeUsername);
             if (currentNode.Deepth == -1 || currentNode.Deepth < rootUser.Deepth)
@@ -1251,36 +1255,7 @@ namespace ICOServices.Implementations
             return IsInTreeSystemRecursive(rootUser, currentNode.ParentUsername, _context);
         }
 
-        public BaseSingleResponse<UserDashboardVM> GetDashboardInfo(string username)
-        {
-            var response = new BaseSingleResponse<UserDashboardVM>();
-            try
-            {
-                response.Value = this.DashboardInfo(username);
-            }
-            catch (Exception ex)
-            {
-                _logger.Error(ex);
-                response.IsSuccess = false;
-            }
-            return response;
-        }
-
-        public UserDashboardVM DashboardInfo(string username)
-        {
-            UserDashboardVM vm = new UserDashboardVM();
-            ProvideHelpService provideHelpService = new ProvideHelpService();
-            WalletService walletService = new WalletService();
-            UserBIMain biMain = walletService.GetUserBIMain(username);
-
-            vm.TotalBonus = biMain.TotalComissionMatching + biMain.TotalComissionDirectReferralPH + biMain.TotalComissionLeader;
-            vm.TotalBonus = CommonUtils.FoatBTCAmount(vm.TotalBonus);
-            vm.GHBalance = biMain.TotalAmountAbleToGHNeedToken + biMain.TotalAmountAbleToGHNotNeedToken;
-            vm.TotalCoinWallet = walletService.CoinWalletBalance(username);
-            vm.TotalPHRunningAmount = provideHelpService.TotalAmountRunningPH(username);
-            vm.Me = this.GetUserInfo(username);
-            return vm;
-        }
+       
 
         public BaseListResponse<UserDetailVM> Search(UserDetailQuery query)
         {
