@@ -12,8 +12,6 @@ namespace ICOServices.Implementations
 {
     public class CountryService : BaseService
     {
-        private static readonly log4net.ILog _logger =
-                      log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         private CountryRepository _countryRepository;
 
@@ -49,7 +47,6 @@ namespace ICOServices.Implementations
             }
             catch (Exception ex)
             {
-                _logger.Fatal(ex);
                 response.IsSuccess = false;
             }
 

@@ -88,8 +88,12 @@
     <Compile Include="Infrastructures\Constants\CommonConstants.cs" />
     <Compile Include="Infrastructures\Constants\ResultCode.cs" />
     <Compile Include="Infrastructures\Enums\AccountStatusEnum.cs" />
+    <Compile Include="Infrastructures\Enums\BTCStoreTransactionStatusEnum.cs" />
+    <Compile Include="Infrastructures\Enums\BTCStoreTransactionTypeEnum.cs" />
+    <Compile Include="Infrastructures\Enums\HistoryBTCWithDrawStatusEnum.cs" />
     <Compile Include="Infrastructures\Enums\ProvideHelpCalculateStatusEnum.cs" />
     <Compile Include="Infrastructures\Enums\ProvideHelpStatusEnum.cs" />
+    <Compile Include="Infrastructures\Enums\TransactionTokenTransferTypeEnum.cs" />
     <Compile Include="Infrastructures\Enums\TreePositionEnum.cs" />
     <Compile Include="Infrastructures\Enums\UserReferralStatusEnum.cs" />
     <Compile Include="Infrastructures\Enums\UserWalletStatusEnum.cs" />
@@ -107,6 +111,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Queries\Base\BaseQuery.cs" />
+    <Compile Include="Queries\Components\BTCStoreTransactionQuery.cs" />
+    <Compile Include="Queries\Components\GeneralReportQuery.cs" />
+    <Compile Include="Queries\Components\HistoryBTCWithDrawQuery.cs" />
     <Compile Include="Queries\Components\ProvideHelpQuery.cs" />
     <Compile Include="Queries\Components\UserInfoQuery.cs" />
     <Compile Include="Repositories\Base\Extras.cs" />
@@ -133,7 +140,9 @@
     <Compile Include="Utils\Mail\MailUtils.cs" />
     <Compile Include="Utils\MapperUtils.cs" />
     <Compile Include="Utils\Types\TypeHelper.cs" />
+    <Compile Include="ViewModels\GeneralReportByDayVM.cs" />
     <Compile Include="ViewModels\NadyTreeVM.cs" />
+    <Compile Include="ViewModels\TotalReportVM.cs" />
     <Compile Include="ViewModels\UserDashboardVM.cs" />
     <Compile Include="ViewModels\UserDetailVM.cs" />
   </ItemGroup>

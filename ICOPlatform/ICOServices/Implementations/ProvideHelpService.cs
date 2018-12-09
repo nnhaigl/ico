@@ -17,8 +17,6 @@ namespace ICOServices.Implementations
 {
     public class ProvideHelpService : BaseService
     {
-        private static readonly log4net.ILog _logger =
-                  log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         private ProvideHelpRepository _repository;
 
@@ -76,7 +74,6 @@ namespace ICOServices.Implementations
             }
             catch (Exception ex)
             {
-                _logger.Fatal(ex);
                 response.IsSuccess = false;
             }
 

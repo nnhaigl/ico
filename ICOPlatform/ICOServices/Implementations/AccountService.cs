@@ -17,8 +17,6 @@ namespace ICOServices.Implementations
 {
     public class AccountService : BaseService
     {
-        //private static readonly log4net.ILog _logger =
-        //      log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         private AccountRepository _repository;
         private UserInfoRepository _userInfoRepository;
@@ -27,14 +25,7 @@ namespace ICOServices.Implementations
             _repository = new AccountRepository();
             _userInfoRepository = new UserInfoRepository();
         }
-
-        //public void Register(string username, string password)
-        //{
-        //    string salt = SaltHelper.GetUniqueKey();
-        //    string hashedPassword = HashHelper.MD5Hash(password + salt);
-        //    Database.SaveUser(username, hashedPassword, salt);
-        //}
-
+        
         public BaseSingleResponse<bool> CheckPass(string username, string password)
         {
             var response = new BaseSingleResponse<bool>();
@@ -49,7 +40,6 @@ namespace ICOServices.Implementations
             }
             catch (Exception ex)
             {
-                //_logger.Error(ex);
                 response.IsSuccess = false;
             }
             return response;

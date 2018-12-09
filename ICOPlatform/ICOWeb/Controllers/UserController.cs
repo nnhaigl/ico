@@ -81,6 +81,8 @@ namespace ICOWeb.Controllers
                     var userLevelService = new UserLevelService();
                     user.LevelName = userLevelService.GetByCode(user.LevelCode).Name;
                     ApplicationContext.CurrentUser = user;
+                    var accountService = new AccountService();
+                    ApplicationContext.CurrentAccount = accountService.GetAccount(username);
                 }
             }
             catch (Exception ex)

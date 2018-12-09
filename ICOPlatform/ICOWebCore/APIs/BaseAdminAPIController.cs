@@ -7,7 +7,7 @@ using System.Web.Http;
 
 namespace ICOWebCore.APIs
 {
-    class BaseAdminAPIController : ApiController
+    public class BaseAdminAPIController : ApiController
     {
         private const string HEADER_USER_REQUEST = "Username";
 

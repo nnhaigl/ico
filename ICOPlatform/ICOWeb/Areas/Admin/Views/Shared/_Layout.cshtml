@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>HCUMT ICO</title>
+
+    @Styles.Render("~/template/css")
+    @Styles.Render("~/global/css")
+    @RenderSection("style", false)
+</head>
+<body>
+    <!-- Main navbar -->
+    @Html.Partial("_MainNavBar")
+    <!-- /main navbar -->
+    <!-- Page container -->
+    <div class="page-container">
+        <!-- Page content -->
+        <div class="page-content">
+            <!-- Main sidebar -->
+            @Html.Partial("_MainSideBar")
+            <!-- /main sidebar -->
+            <!-- Main content -->
+            <div class="content-wrapper">
+                <!-- Page header -->
+                @*@Html.Partial("_PageHeader")*@
+                @RenderSection("PageHeader", false)
+                <!-- /page header -->
+                <!-- Content area -->
+                <div class="content" ng-app="frApp">
+                    @RenderBody()
+                    <!-- Footer -->
+                    <div class="footer text-muted">
+                        &copy; 2016. <a href="#" target="_blank">HCMUT ICO</a>
+                    </div>
+                    <!-- /footer -->
+                </div>
+                <!-- /content area -->
+            </div>
+            <!-- /main content -->
+        </div>
+        <!-- /page content -->
+    </div>
+    <!-- /page container -->
+    <!-- Mainly scripts -->
+    @Scripts.Render("~/template/coreJs")
+    @Scripts.Render("~/template/coreThemeJs")
+    @Scripts.Render("~/core/angularjs")
+    @Scripts.Render("~/global/plugins")
+    @Scripts.Render("~/global/js")
+
+    @RenderSection("script", false)
+    <!-- .Mainly scripts -->
+    <script>
+        var url = window.location.href.toString().toLowerCase();
+        $("ul.navigation-main li a").each(function (index) {
+            //console.log(index + ": " + $(this).attr('href'));
+            var href = $(this).attr('href').toString().toLowerCase();
+            if (url.indexOf(href) != -1) {
+                $(this).parent('li').addClass('active');
+            } else {
+                $(this).parent('li').removeClass('active');
+            }
+        });
+
+        var sendMail = function () {
+        };
+
+    </script>
+
+</body>
+</html>

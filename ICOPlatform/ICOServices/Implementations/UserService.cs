@@ -27,8 +27,6 @@ namespace ICOServices.Implementations
 {
     public class UserService : BaseService
     {
-        private static readonly log4net.ILog _logger =
-                log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         private UserInfoRepository _repository;
         private AccountRepository _accountRepository;
@@ -216,7 +214,6 @@ namespace ICOServices.Implementations
             }
             catch (Exception ex)
             {
-                _logger.Fatal(ex);
                 response.IsSuccess = false;
             }
 
@@ -654,7 +651,6 @@ namespace ICOServices.Implementations
                 {
                     transaction.Rollback();
                     response.IsSuccess = false;
-                    _logger.Error(ex);
                 }
                 finally
                 {
@@ -673,7 +669,6 @@ namespace ICOServices.Implementations
             }
             catch (Exception ex)
             {
-                _logger.Error(ex);
                 response.IsSuccess = false;
             }
 
@@ -750,7 +745,6 @@ namespace ICOServices.Implementations
 
             catch (Exception ex)
             {
-                _logger.Error(ex);
                 response.IsSuccess = false;
             }
             return response;
@@ -775,7 +769,6 @@ namespace ICOServices.Implementations
             }
             catch (Exception ex)
             {
-                _logger.Error(ex);
                 response.IsSuccess = false;
             }
 
@@ -812,7 +805,6 @@ namespace ICOServices.Implementations
             }
             catch (Exception ex)
             {
-                _logger.Error(ex);
                 if (null != _transaction)
                     _transaction.Rollback();
                 return false;
@@ -907,7 +899,6 @@ namespace ICOServices.Implementations
             }
             catch (Exception ex)
             {
-                _logger.Error(ex);
                 response.IsSuccess = false;
             }
 
@@ -929,7 +920,6 @@ namespace ICOServices.Implementations
             }
             catch (Exception ex)
             {
-                _logger.Fatal(ex);
                 response.IsSuccess = false;
             }
 
@@ -1134,7 +1124,6 @@ namespace ICOServices.Implementations
                 catch (Exception ex)
                 {
                     transaction.Rollback();
-                    _logger.Fatal(ex);
                     response.IsSuccess = false;
                 }
                 finally
@@ -1149,7 +1138,6 @@ namespace ICOServices.Implementations
             }
             catch (Exception ex)
             {
-                _logger.Fatal(ex);
                 response.IsSuccess = false;
             }
 
@@ -1350,7 +1338,6 @@ namespace ICOServices.Implementations
                     catch (Exception ex)
                     {
                         transaction.Rollback();
-                        _logger.Error(ex);
                         response.IsSuccess = false;
                     }
                     finally
@@ -1367,7 +1354,6 @@ namespace ICOServices.Implementations
             }
             catch (Exception ex)
             {
-                _logger.Error(ex);
                 response.IsSuccess = false;
             }
 
@@ -1466,7 +1452,6 @@ namespace ICOServices.Implementations
             }
             catch (Exception ex)
             {
-                _logger.Error(ex);
                 response.IsSuccess = false;
             }
             return response;
@@ -1485,7 +1470,6 @@ namespace ICOServices.Implementations
             }
             catch (Exception ex)
             {
-                _logger.Error(ex);
                 response.IsSuccess = false;
             }
             return response;
@@ -1504,7 +1488,6 @@ namespace ICOServices.Implementations
             }
             catch (Exception ex)
             {
-                _logger.Error(ex);
                 response.IsSuccess = false;
             }
             return response;
@@ -1525,7 +1508,6 @@ namespace ICOServices.Implementations
             }
             catch (Exception ex)
             {
-                _logger.Error(ex);
                 response.IsSuccess = false;
             }
             return response;
@@ -1546,7 +1528,6 @@ namespace ICOServices.Implementations
             }
             catch (Exception ex)
             {
-                _logger.Error(ex);
                 response.IsSuccess = false;
             }
             return response;
@@ -1565,7 +1546,6 @@ namespace ICOServices.Implementations
             }
             catch (Exception ex)
             {
-                _logger.Error(ex);
                 response.IsSuccess = false;
             }
             return response;

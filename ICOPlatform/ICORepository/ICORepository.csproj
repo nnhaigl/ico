@@ -44,7 +44,9 @@
   <ItemGroup>
     <Compile Include="Implementations\Bonous\UserBonusInfoRepository.cs" />
     <Compile Include="Implementations\Categories\CountryRepository.cs" />
+    <Compile Include="Implementations\Histories\HistoryBTCWithDrawRepository.cs" />
     <Compile Include="Implementations\Investment\ProvideHelpRepository.cs" />
+    <Compile Include="Implementations\Stores\BTCStoreTransactionRepository.cs" />
     <Compile Include="Implementations\Users\AccountRepository.cs" />
     <Compile Include="Implementations\Users\UserInfoRepository.cs" />
     <Compile Include="Implementations\Users\UserLevelRepository.cs" />

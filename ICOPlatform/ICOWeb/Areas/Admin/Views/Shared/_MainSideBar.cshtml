@@ -1,0 +1,89 @@
+﻿@using ICOWebCore.Context;
+
+<div class="sidebar sidebar-main">
+    <div class="sidebar-content">
+        <!-- User menu -->
+        <div class="sidebar-user">
+            <div class="category-content">
+                <div class="media">
+                    <a href="/me/profile" class="media-left"><img src="~/Content/global/images/avatar_placeholder.jpg" class="img-circle img-sm" alt=""></a>
+                    <div class="media-body">
+                        <span class="media-heading text-semibold">@ApplicationContext.CurrentUsername</span>
+                        <div class="text-size-mini text-muted">
+                            @*  <i class="icon-pin text-size-small"></i> &nbsp;@ApplicationContext.CurrentUser.City , @ApplicationContext.CurrentUser.CountryCode*@
+                        </div>
+                    </div>
+                    <div class="media-right media-middle">
+                        <ul class="icons-list">
+                            <li>
+                                <a href="/me/setting"><i class="icon-cog3"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /user menu -->
+        <!-- Main navigation -->
+        <div class="sidebar-category sidebar-category-visible">
+            <div class="category-content no-padding">
+                <ul class="navigation navigation-main navigation-accordion">
+                    <!-- Main -->
+                    <li class="active"><a href="/admin/Dashboard"><i class="icon-home4"></i> <span>Dashboard</span></a></li>
+                    <li class="navigation-header"><span>BTC Store </span> <i class="icon-menu" title="" data-original-title="Forms"></i></li>
+                    <li>
+                        <a href="/admin/btcStore/transaction"><i class="glyphicon glyphicon-list"></i><span>BTC Transaction</span></a>
+                    </li>
+                    <li>
+                        <a href="/admin/WithDrawBTC/transaction"><i class="glyphicon glyphicon-barcode"></i> <span>Withdraw Transaction</span></a>
+                    </li>
+                    <li class="navigation-header"><span>Report</span> <i class="icon-menu" title="" data-original-title="Data visualization"></i></li>
+                    <li>
+                        <a href="/admin/report/generalbyday/"><i class="glyphicon glyphicon-tasks"></i> <span>General By Day</span></a>
+                    </li>
+                    <li class="navigation-header"><span>Member</span> <i class="icon-menu" title="" data-original-title="Data visualization"></i></li>
+                    <li>
+                        <a href="/admin/member/tree/"><i class=" icon-tree6"></i> <span>Tree</span></a>
+                    </li>
+                    <li>
+                        <a href="/admin/member/list"><i class=" icon-users"></i> <span>List</span></a>
+                    </li>
+                    <li class="navigation-header"><span>Provide Help</span> <i class="icon-menu" title="" data-original-title="Data visualization"></i></li>
+                    <li>
+                        <a href="/admin/providehelp/transaction"><i class="icon-shield-notice"></i> <span>Transaction</span></a>
+                    </li>
+                    <li class="navigation-header"><span>Get Help</span> <i class="icon-menu" title="" data-original-title="Data visualization"></i></li>
+                    <li>
+                        <a href="/admin/gethelp/transaction"><i class="icon-transmission"></i> <span>Transaction</span></a>
+                    </li>
+                    <li class="navigation-header"><span>Token</span> <i class="icon-menu" title="" data-original-title="Data visualization"></i></li>
+                    <li>
+                        <a href="/admin/token/transaction"><i class="glyphicon glyphicon-tags"></i> <span>Transaction</span></a>
+                    </li>
+                    @*<li class="navigation-header"><span>Config</span> <i class="icon-menu" title="" data-original-title="Data visualization"></i></li>
+                        <li>
+                            <a href="/admin/config/tokendemand"><i class=" icon-cog3"></i> <span>Token Demand</span></a>
+                        </li>
+                        <li>
+                            <a href="/admin/config/providehelppolicy"><i class=" icon-cog3"></i> <span>Provide Help Policy</span></a>
+                        </li>
+                        <li>
+                            <a href="/admin/config/system"><i class="glyphicon glyphicon-cog"></i> <span>System Setting</span></a>
+                        </li>*@
+                    @*<li class="navigation-header"><span>Job</span> <i class="icon-menu" title="" data-original-title="Data visualization"></i></li>
+                        <li>
+                            <a href="/admin/job"><i class="glyphicon glyphicon-retweet"></i><span>Daily job</span></a>
+                        </li>*@
+                    <li class="navigation-header"><span>Log</span> <i class="icon-menu" title="" data-original-title="Data visualization"></i></li>
+                    <li>
+                        <a href="/admin/log/schedule"><i class="glyphicon glyphicon-tasks"></i><span>Schedule Log</span></a>
+                    </li>
+                    <li>
+                        <a href="/admin/log/system"><i class="glyphicon glyphicon-file"></i><span>System Log</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- /main navigation -->
+    </div>
+</div>

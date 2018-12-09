@@ -77,6 +77,7 @@
     <Compile Include="APIs\BaseFrontAPIController.cs" />
     <Compile Include="Context\ApplicationConstant.cs" />
     <Compile Include="Context\ApplicationContext.cs" />
+    <Compile Include="Controllers\BaseAdminController.cs" />
     <Compile Include="Controllers\BaseFrontController.cs" />
     <Compile Include="Filters\BaseAdminAuthenFilterAttribute.cs" />
     <Compile Include="Filters\BaseFrontAuthenFilterAttribute.cs" />
