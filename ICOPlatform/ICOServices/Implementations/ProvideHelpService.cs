@@ -30,6 +30,11 @@ namespace ICOServices.Implementations
             return _repository.AllRunningPH(username);
         }
 
+        public double TotalAmountRunningPH(string username)
+        {
+            return _repository.TotalAmountRunningPH(username);
+        }
+
         public BaseListResponse<ProvideHelpDto> Search(ProvideHelpQuery query)
         {
             var response = new BaseListResponse<ProvideHelpDto>();

@@ -48,6 +48,8 @@
     <Compile Include="Implementations\Investment\ProvideHelpRepository.cs" />
     <Compile Include="Implementations\Stores\BTCStoreTransactionRepository.cs" />
     <Compile Include="Implementations\Users\AccountRepository.cs" />
+    <Compile Include="Implementations\Users\UserBIMainRepository.cs" />
+    <Compile Include="Implementations\Users\UserBTCRepository.cs" />
     <Compile Include="Implementations\Users\UserInfoRepository.cs" />
     <Compile Include="Implementations\Users\UserLevelRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

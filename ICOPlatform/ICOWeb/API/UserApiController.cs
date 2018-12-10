@@ -80,7 +80,12 @@ namespace ICOWeb.API
             return _userService.PlaceUser(query);
         }
 
-        
+        [HttpGet]
+        [Route("Dashboard/Me")]
+        public BaseSingleResponse<UserDashboardVM> GetDashboardInfo()
+        {
+            return _userService.GetDashboardInfo(UserHeader());
+        }
 
     }
 }
