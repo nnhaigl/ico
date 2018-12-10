@@ -27,6 +27,8 @@ namespace ICOServices.Implementations
 {
     public class UserService : BaseService
     {
+        private static readonly log4net.ILog _logger =
+                log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         private UserInfoRepository _repository;
         private AccountRepository _accountRepository;
@@ -1242,8 +1244,36 @@ namespace ICOServices.Implementations
 
             return IsInTreeSystemRecursive(rootUser, currentNode.ParentUsername, _context);
         }
+        public BaseSingleResponse<UserDashboardVM> GetDashboardInfo(string username)
+        {
+            var response = new BaseSingleResponse<UserDashboardVM>();
+            try
+            {
+                response.Value = this.DashboardInfo(username);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex);
+                response.IsSuccess = false;
+            }
+            return response;
+        }
 
-       
+        public UserDashboardVM DashboardInfo(string username)
+        {
+            UserDashboardVM vm = new UserDashboardVM();
+            ProvideHelpService provideHelpService = new ProvideHelpService();
+            WalletService walletService = new WalletService();
+            UserBIMain biMain = walletService.GetUserBIMain(username);
+
+            vm.TotalBonus = biMain.TotalComissionMatching + biMain.TotalComissionDirectReferralPH + biMain.TotalComissionLeader;
+            vm.TotalBonus = CommonUtils.FoatBTCAmount(vm.TotalBonus);
+            vm.GHBalance = biMain.TotalAmountAbleToGHNeedToken + biMain.TotalAmountAbleToGHNotNeedToken;
+            vm.TotalCoinWallet = walletService.CoinWalletBalance(username);
+            vm.TotalPHRunningAmount = provideHelpService.TotalAmountRunningPH(username);
+            vm.Me = this.GetUserInfo(username);
+            return vm;
+        }
 
         public BaseListResponse<UserDetailVM> Search(UserDetailQuery query)
         {
