@@ -137,6 +137,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API\BTCStoreApiController.cs" />
+    <Compile Include="API\CommonApiController.cs" />
     <Compile Include="API\UserApiController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -148,6 +150,7 @@
     <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
     <Compile Include="Areas\Admin\Controllers\MemberController.cs" />
     <Compile Include="Areas\Admin\Controllers\ReportController.cs" />
+    <Compile Include="Controllers\BTCWalletController.cs" />
     <Compile Include="Controllers\GlobalController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MeController.cs" />
@@ -4381,6 +4384,7 @@
     <Content Include="Views\Member\Placement.cshtml" />
     <Content Include="Views\Member\ReferralLink.cshtml" />
     <Content Include="Views\Member\Tree.cshtml" />
+    <Content Include="Views\BTCWallet\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -79,6 +79,7 @@
     <Compile Include="Dtos\Components\CfgTokenDemandDto.cs" />
     <Compile Include="Dtos\Components\ProvideHelpDto.cs" />
     <Compile Include="Dtos\Components\UserInfoDto.cs" />
+    <Compile Include="Entities\Component\CfgProvideHelpPolicy.cs" />
     <Compile Include="Entities\Component\UserInfo.cs" />
     <Compile Include="Entities\Extra\BTCRateWrapper.cs" />
     <Compile Include="Entities\Extra\GoogleCaptchaResponse.cs" />
@@ -90,6 +91,8 @@
     <Compile Include="Infrastructures\Enums\AccountStatusEnum.cs" />
     <Compile Include="Infrastructures\Enums\BTCStoreTransactionStatusEnum.cs" />
     <Compile Include="Infrastructures\Enums\BTCStoreTransactionTypeEnum.cs" />
+    <Compile Include="Infrastructures\Enums\BTCStoreTypeEnum.cs" />
+    <Compile Include="Infrastructures\Enums\CfgProvideHelpPolicyStatusEnum.cs" />
     <Compile Include="Infrastructures\Enums\HistoryBTCWithDrawStatusEnum.cs" />
     <Compile Include="Infrastructures\Enums\ProvideHelpCalculateStatusEnum.cs" />
     <Compile Include="Infrastructures\Enums\ProvideHelpStatusEnum.cs" />
@@ -102,6 +105,7 @@
     <Compile Include="Messages\Base\BaseRequest.cs" />
     <Compile Include="Messages\Base\BaseResponse.cs" />
     <Compile Include="Messages\Base\BaseSingleRepsponse.cs" />
+    <Compile Include="Messages\Requests\DepositBTCRequest.cs" />
     <Compile Include="Messages\Requests\PasswordRequest.cs" />
     <Compile Include="Messages\Requests\UserPlacementRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -140,6 +144,7 @@
     <Compile Include="Utils\Mail\MailUtils.cs" />
     <Compile Include="Utils\MapperUtils.cs" />
     <Compile Include="Utils\Types\TypeHelper.cs" />
+    <Compile Include="Validator\CfgProvideHelpPolicyValidator.cs" />
     <Compile Include="ViewModels\GeneralReportByDayVM.cs" />
     <Compile Include="ViewModels\NadyTreeVM.cs" />
     <Compile Include="ViewModels\TotalReportVM.cs" />

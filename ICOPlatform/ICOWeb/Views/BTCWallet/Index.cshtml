@@ -1,0 +1,576 @@
+﻿@{
+    ViewBag.Title = "Transfer";
+}
+@section style {
+    <style>
+        .progress-lg {
+            height: 32px;
+        }
+
+        .control-label, .text-semibold {
+            font-weight: bold;
+        }
+
+        .panel-flat > .panel-heading {
+            padding-bottom: 5px !important;
+        }
+
+        .panel {
+            padding-bottom: 20px !important;
+        }
+    </style>
+}
+
+@section PageHeader {
+    <div class="page-header page-header-default">
+        <div class="breadcrumb-line">
+            <ul class="breadcrumb">
+                <li><a href="/me/dashboard"><i class="icon-home2 position-left"></i> Home</a></li>
+                <li class="active">BTC Wallet</li>
+            </ul>
+        </div>
+    </div>
+}
+
+<div ng-controller="btcWalletCtrl" ng-init="init();" id="divBtcWalletCtrl" class="display-none2" cg-busy="{promise:promise,message:'Please wait...',backdrop:true,delay:0,minDuration:500}">
+    <div class="row ">
+        <div class="col-lg-12">
+            <div class="panel-body">
+                <div class="tabbable">
+                    <ul class="nav nav-tabs nav-tabs-top nav-justified">
+                        <li class="active">
+                            <a href="#tab_btc_wallet_info" data-toggle="tab" aria-expanded="true">
+                                <i class="icon-portfolio"></i>
+                                INFO
+                            </a>
+                        </li>
+                        <li class="">
+                            <a href="#tab_btc_wallet_deposit" data-toggle="tab" aria-expanded="false">
+                                <i class="icon-arrow-right16"></i>
+                                DEPOSIT BTC
+                            </a>
+                        </li>
+                        <li class="">
+                            <a href="#tab_btc_wallet_send" data-toggle="tab" aria-expanded="false">
+                                <i class="icon-redo"></i>
+                                BTC WITHDRAW
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="tab_btc_wallet_info">
+                            <div class="panel panel-flat">
+                                <div class="panel-heading">
+                                    <h5 class="panel-title text-semibold">
+                                        BTC Wallet (Blockchain Wallet)
+                                    </h5>
+                                </div>
+                                <div ng-show="btcInfo.WalletID != ''" class="panel-body">
+                                    <p class="content-group">
+                                        <code>
+                                            Auto sync (resyn / 30 mims)
+                                        </code>
+                                    </p>
+                                </div>
+
+                                <div ng-show="btcInfo.WalletID == ''" class="panel-body">
+                                    <p class="content-group">
+                                        <code>
+                                            &nbsp;&nbsp;&nbsp;&clubs; You have not entered your Bit Address (Blockchain Bit Address) yet.
+                                            <br />
+                                            &nbsp;&nbsp;&nbsp;&clubs; To withdraw your BTC we must know your address.
+                                            <br />
+                                            &nbsp;&nbsp;&nbsp;&clubs; Please enter your address.
+                                        </code>
+                                    </p>
+                                    <form class="form-horizontal" action="#">
+                                        <fieldset class="content-group">
+                                            <div class="form-group">
+                                                <label class="control-label col-lg-1"></label>
+                                                <label class="control-label col-lg-2 text-semibold">Bit Address</label>
+                                                <div class="col-lg-9">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">
+                                                            <i class="icon-database-refresh"></i>
+                                                        </span>
+                                                        <input ng-model="newBitAddress" id="filed_newBitAddress" class="form-control" placeholder="Your External Bit Address on Blockchain" type="text">
+                                                    </div>
+                                                    <span class="help-block text-danger display-none2" id="lb_err_bitaddress">
+                                                        <i class="icon-notification2"></i>
+                                                        &nbsp;Address is not valid
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-lg-1"></label>
+                                                <div class="col-lg-11">
+                                                    <button ng-click="enterBitAddress();" type="button" class="btn btn-primary ">
+                                                        SUBMIT
+                                                        <i class="icon-arrow-right14 position-right"></i>
+                                                    </button>
+                                                    <button ng-click="clearBitAddress();" type="button" class="btn btn-default btn-ladda btn-ladda-spinner ladda-button" data-spinner-color="#333" data-style="slide-down">
+                                                        <span class="ladda-label">RESET</span><span class="ladda-spinner"></span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </form>
+                                </div>
+
+                                <div ng-show="btcInfo.WalletID != ''" class="row">
+                                    <div class="col-lg-1"></div>
+                                    <div class="col-lg-5">
+                                        @*<img alt="Scan me!" src="~/Content/template/layout_1/LTR/default/assets/images/qacode.png" style="display: block;float:right;">*@
+                                        <div id="bitAddress_qrcode">
+                                            <a target="_blank" ng-attr-href="https://blockchain.info/qr?data={{btcInfo.WalletID}}&size=300"></a>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-5">
+                                        <label class="text-semibold">Blockchain wallet balance</label><br>
+                                        <label class="text-danger text-semibold">{{btcInfo.Amount}} BTC</label><br /><br />
+                                        <a href="#" class="letter-icon-title text-semibold">Address</a><br>
+                                        <div class="input-group">
+                                            <input class="form-control" ng-model="btcInfo.WalletID" disabled type="text">
+                                            <span class="input-group-addon"><i class="icon-attachment2"></i></span>
+                                        </div>
+                                        <br />
+                                        <label class="text-semibold">{{btcInfo.Username | uppercase}}</label><br>
+                                    </div>
+                                    <div class="col-lg-1"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tab_btc_wallet_send">
+                            <div class="panel panel-flat">
+                                <div class="panel-heading">
+                                    <h5 class="panel-title text-semibold">
+                                        Wallet BTC Withdraw
+                                    </h5>
+                                </div>
+                                <div class="panel-body">
+                                    <p class="content-group">
+                                        <code>
+                                            You're able to withdraw
+                                            <span class="text-danger text-semibold">{{withDrawInfo.AmountAbleToWithDrawToday}} BTC</span>
+                                        </code>
+                                    </p>
+                                    <form class="form-horizontal" action="#">
+                                        <fieldset class="content-group">
+                                            <div class="form-group">
+                                                <label class="control-label col-lg-1"></label>
+                                                <div class="col-lg-11">
+                                                    <div class="radio">
+                                                        <label>
+                                                            <div class="choice border-primary-600 text-primary-800">
+                                                                <span class="checked">
+                                                                    <input name="radio-styled-color" class="control-primary" checked="checked" type="radio">
+                                                                </span>
+                                                            </div>
+                                                            <a href="#" class="text-success">
+                                                                <i class="icon-coins"></i>
+                                                            </a>
+                                                            Use BTC Wallet ~ {{btcInfo.Amount}} BTC
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            @*<div class="form-group">
+                                                    <label class="control-label col-lg-1"></label>
+                                                    <label class="control-label col-lg-2 text-semibold">External Address</label>
+                                                    <div class="col-lg-9">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon">
+                                                                <i class="icon-database-refresh"></i>
+                                                            </span>
+                                                            <input class="form-control" placeholder="External Wallet Address" type="text">
+                                                        </div>
+                                                    </div>
+                                                </div>*@
+                                            <div class="form-group">
+                                                <label class="control-label col-lg-1"></label>
+                                                <label class="control-label col-lg-2 text-semibold">
+                                                    Withdraw Amount
+                                                </label>
+                                                <div class="col-lg-9">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">
+                                                            <i class="icon-price-tag3"></i>
+                                                        </span>
+                                                        <input ng-model="withDrawRequest.Amount" id="field_withdraw_Amount" class="form-control" placeholder="BTC Amount to withdraw" type="text">
+                                                    </div>
+                                                    <span ng-repeat="item in errorMessagesWithDraw" class="field-validation-error ng-cloak" ng-if="item.PropertyName=='Amount'">{{item.ErrorMessage}}</span>
+                                                </div>
+                                            </div>
+                                            @*<div class="form-group has-warning">
+                                                    <label class="control-label col-lg-1"></label>
+                                                    <label class="control-label col-lg-2 text-semibold">2FA</label>
+                                                    <div class="col-lg-9">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon">
+                                                                <i class="icon-key"></i>
+                                                            </span>
+                                                            <input class="form-control" placeholder="Your 2 FA" type="text">
+                                                        </div>
+                                                        <span class="help-block">
+                                                            <i class="icon-notification2"></i>
+                                                            &nbsp;For security, dont let anyone know your 2 FA
+                                                        </span>
+                                                    </div>
+                                                </div>*@
+                                            <div class="form-group">
+                                                <label class="control-label col-lg-1"></label>
+                                                <div class="col-lg-11">
+                                                    <button ng-click="doWithdrawBTC();" type="button" class="btn btn-primary ">
+                                                        WITHDRAW BTC
+                                                        <i class="icon-arrow-right14 position-right"></i>
+                                                    </button>
+                                                    <button ng-click="resetWithDraw();" type="button" class="btn btn-default btn-ladda btn-ladda-spinner ladda-button" data-spinner-color="#333" data-style="slide-down">
+                                                        <span class="ladda-label">Reset</span><span class="ladda-spinner"></span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tab_btc_wallet_deposit">
+                            <div class="panel panel-flat">
+                                <div class="panel-heading">
+                                    <h5 class="panel-title text-semibold">
+                                        BTC Deposit
+                                    </h5>
+                                </div>
+                                <div class="panel-body">
+                                    <p class="content-group">
+                                        @*<code>
+                                                You're able to withdraw <span class="text-danger text-semibold">0.013 BTC</span>
+                                            </code>*@
+                                    </p>
+                                    <form class="form-horizontal" action="#">
+                                        <fieldset class="content-group">
+                                            <div class="form-group">
+                                                <label class="control-label col-lg-1"></label>
+                                                <div class="col-lg-11">
+                                                    <div class="radio">
+                                                        <label>
+                                                            <div class="choice border-primary-600 text-primary-800">
+                                                                <span class="checked">
+                                                                    <input name="radio-styled-color" class="control-primary" checked="checked" type="radio">
+                                                                </span>
+                                                            </div>
+                                                            <a href="#" class="text-success">
+                                                                <i class="icon-coins"></i>
+                                                            </a>
+                                                            Current Balancer ~ {{btcInfo.Amount}} BTC
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-lg-1"></label>
+                                                <label class="control-label col-lg-2 text-semibold">Amount</label>
+                                                <div class="col-lg-9">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">
+                                                            <i class="icon-database-refresh"></i>
+                                                        </span>
+                                                        <input ng-model="deposit.Amount" ng-disabled="deposit.addressForReceive != null" class="form-control" placeholder="Amount to deposit" type="text">
+                                                    </div>
+                                                    <span class="help-block display-none2" id="lb_err_deposit_amount">
+                                                        <i class="icon-notification2"></i>
+                                                        &nbsp;Amount is not valid
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div ng-show="deposit.addressForReceive != null" class="form-group has-warning">
+                                                <label class="control-label col-lg-1"></label>
+                                                <label class="control-label col-lg-2 text-semibold">Deposit Address</label>
+                                                <div class="col-lg-9">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">
+                                                            <i class="icon-key"></i>
+                                                        </span>
+                                                        <input class="form-control" disabled ng-model="deposit.addressForReceive" type="text">
+                                                    </div>
+                                                    <span class="help-block">
+                                                        <i class="icon-notification2"></i>
+                                                        &nbsp;Please send BTC to this address
+                                                        <button ng-click="copyAddressToClipboard();" type="button" class="btn btn-default btn-ladda btn-ladda-spinner ladda-button" data-spinner-color="#333" data-style="slide-down">
+                                                            <i class="icon-attachment2"></i> <span class="ladda-label">COPY</span>
+                                                        </button>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div ng-show="deposit.addressForReceive != null" class="form-group">
+                                                <label class="control-label col-lg-1"></label>
+                                                <label class="control-label col-lg-2 text-semibold">Scan me !</label>
+                                                <div class="col-lg-6">
+                                                    @*<img alt="Scan me!" src="~/Content/template/layout_1/LTR/default/assets/images/qacode.png" style="display: block;float:right;">*@
+                                                    <div id="qrcode">
+                                                        <a target="_blank" ng-attr-href="https://blockchain.info/qr?data={{deposit.addressForReceive}}&size=300"></a>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-3">
+                                                </div>
+                                            </div>
+
+                                            <div ng-show="deposit.addressForReceive == null" class="form-group">
+                                                <label class="control-label col-lg-1"></label>
+                                                <div class="col-lg-11">
+                                                    <button ng-click="doDeposit();" type="button" class="btn btn-primary ">
+                                                        DEPOSIT
+                                                        <i class="icon-arrow-right14 position-right"></i>
+                                                    </button>
+                                                    <button ng-click="cancel();" type="button" class="btn btn-default btn-ladda btn-ladda-spinner ladda-button" data-spinner-color="#333" data-style="slide-down">
+                                                        <span class="ladda-label">Reset</span><span class="ladda-spinner"></span>
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                            <div ng-show="deposit.addressForReceive != null" class="form-group">
+                                                <label class="control-label col-lg-1"></label>
+                                                <div class="col-lg-11">
+                                                    <button ng-click="confirmDeposit();" type="button" class="btn btn-primary ">
+                                                        CONFIRM DEPOSIT
+                                                        <i class="icon-arrow-right14 position-right"></i>
+                                                    </button>
+                                                    <button ng-click="cancel();" type="button" class="btn btn-default btn-ladda btn-ladda-spinner ladda-button" data-spinner-color="#333" data-style="slide-down">
+                                                        <span class="ladda-label">CANCEL</span><span class="ladda-spinner"></span>
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                        </fieldset>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <br>
+            <div class="panel panel-flat">
+                <div class="table-responsive">
+                    <table class="table text-nowrap">
+                        <tbody>
+                            <tr class="active border-double">
+                                <td colspan="5">
+                                    <label class="text-semibold">Deposit History</label>
+                                </td>
+                                <td class="text-right">
+                                    <span class="progress-meter" id="today-progress" data-progress="30">&bull;</span>
+                                </td>
+                            </tr>
+                            <tr ng-repeat="tranHis in btcTransactions track by $index">
+                                <td style="width:25%;">
+                                    <div class="media-left media-middle">
+                                        <span>
+                                            <a href="#" class="btn bg-blue btn-rounded btn-icon btn-xs ng-scope">
+                                                <span class="letter-icon">D</span>
+                                            </a>
+                                        </span>
+                                    </div>
+                                    <div class="media-left">
+                                        <div class="">
+                                            <a href="javascript:;" class="text-default text-semibold">
+                                                Deposit
+                                            </a>
+                                        </div>
+                                        <div class="text-muted text-size-small">
+                                            <span class="status-mark border-blue position-left"></span>
+                                            <span ng-bind="tranHis.CreatedDate | date:'dd/MM/yyyy'"></span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td style="width:55%;">
+                                    <span class="text-muted text-semibold">
+                                        You have been deposited <label class="text-danger ">{{tranHis.Amount}} BTC</label>
+                                    </span>
+                                    <br />
+
+                                    <span ng-switch="tranHis.Status">
+                                        <a ng-switch-when="1" href="#" class="label label-rounded border-primary text-primary-600">
+                                            Pending...
+                                        </a>
+                                        <a ng-switch-when="2" href="#" class="label label-rounded border-primary text-primary-600">
+                                            Confirmed
+                                        </a>
+                                        <a ng-switch-when="3" href="#" class="label label-rounded border-primary text-primary-600">
+                                            Reject
+                                        </a>
+                                    </span>
+                                </td>
+                                <td style="width:15%;">
+                                    <span ng-show="tranHis.Status != 3" class="text-success-600">
+                                        <i class="icon-stats-growth2 position-left"></i>
+                                        {{tranHis.Amount}}
+                                    </span>
+                                </td>
+                                <td style="width:15%;">
+                                    <span ng-switch="tranHis.Status">
+                                        <a ng-switch-when="1" href="javascript:;" class="btn border-green-300 text-green-300 btn-flat btn-rounded btn-icon btn-xs">
+                                            <i class="icon-arrow-right16"></i>
+                                        </a>
+                                        <a ng-switch-when="2" href="javascript:;" class="btn border-blue text-blue btn-flat btn-rounded btn-icon btn-xs">
+                                            <i class="icon-checkmark3"></i>
+                                        </a>
+                                        <a ng-switch-when="3" href="javascript:;" class="btn border-danger-300 text-danger-300 btn-flat btn-rounded btn-icon btn-xs">
+                                            <i class="glyphicon glyphicon-minus-sign"></i>
+                                        </a>
+                                    </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <br>
+            <div class="panel panel-flat">
+                <div class="table-responsive">
+                    <table class="table text-nowrap">
+                        <tbody>
+                            <tr class="active border-double">
+                                <td colspan="5">
+                                    <label class="text-semibold">Wallet Convert History</label>
+                                </td>
+                                <td class="text-right">
+                                    <span class="progress-meter" id="today-progress" data-progress="30">&bull;</span>
+                                </td>
+                            </tr>
+                            <tr ng-repeat="convertHis in convertHistories track by $index">
+                                <td style="width:25%;">
+                                    <div class="media-left media-middle">
+                                        <span>
+                                            <a href="#" class="btn bg-blue btn-rounded btn-icon btn-xs ng-scope">
+                                                <span class="letter-icon">C</span>
+                                            </a>
+                                        </span>
+                                    </div>
+                                    <div class="media-left">
+                                        <div class="">
+                                            <a href="javascript:;" class="text-default text-semibold">
+                                                Convert
+                                            </a>
+                                        </div>
+                                        <div class="text-muted text-size-small">
+                                            <span class="status-mark border-blue position-left"></span>
+                                            <span ng-bind="convertHis.CreatedDate | date:'dd/MM/yyyy'"></span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td style="width:55%;">
+                                    <span class="text-muted text-semibold">
+                                        Coin Club has been converted <label class="text-danger ">{{convertHis.BIAmount}} BI </label>
+                                        to fullfill your <label class="text-danger">{{convertHis.BIAmount}} BTC </label>
+                                        conversion
+                                    </span>
+                                    <br />
+                                    <a href="#" class="label label-rounded border-primary text-primary-600">
+                                        Convert History
+                                    </a>
+                                </td>
+                                <td style="width:15%;">
+                                    <span class="text-success-600">
+                                        <i class="icon-stats-growth2 position-left"></i>
+                                        {{convertHis.BIAmount}}
+                                    </span>
+                                </td>
+                                <td style="width:15%;">
+                                    <span>
+                                        <a href="javascript:;" class="btn border-blue text-blue btn-flat btn-rounded btn-icon btn-xs">
+                                            <i class="icon-checkmark3"></i>
+                                        </a>
+                                    </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <br>
+            <div class="panel panel-flat">
+                <div class="table-responsive">
+                    <table class="table text-nowrap">
+                        <tbody>
+                            <tr class="active border-double">
+                                <td colspan="5">
+                                    <label class="text-semibold">Wallet Withdraw History</label>
+                                </td>
+                                <td class="text-right">
+                                    <span class="progress-meter" id="today-progress" data-progress="30">&bull;</span>
+                                </td>
+                            </tr>
+                            <tr ng-repeat="withdrawHis in withdrawHistories track by $index">
+                                <td style="width:25%;">
+                                    <div class="media-left media-middle">
+                                        <span>
+                                            <a href="#" class="btn bg-danger btn-rounded btn-icon btn-xs ng-scope">
+                                                <span class="letter-icon">W</span>
+                                            </a>
+                                        </span>
+                                    </div>
+                                    <div class="media-left">
+                                        <div class="">
+                                            <a href="#" class="text-default text-semibold">
+                                                Withdraw
+                                            </a>
+                                        </div>
+                                        <div class="text-muted text-size-small">
+                                            <span class="status-mark border-blue position-left"></span>
+                                            <span ng-bind="withdrawHis.CreatedDate | date:'dd/MM/yyyy'"></span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td style="width:55%;">
+                                    <span class="text-muted text-semibold">
+                                        Transfer <label class="text-danger ">{{withdrawHis.Amount}} BTC </label>
+                                        to <label class="text-danger">{{withdrawHis.ExternalBTCAddress}}</label>
+                                    </span>
+                                    <br />
+                                    <a href="#" class="label label-rounded border-primary text-primary-600">
+                                        Transaction ID : {{withdrawHis.TransactionHash}}
+                                    </a>
+                                </td>
+                                <td style="width:15%;">
+                                    <span ng-show="withdrawHis.Status == 2" class="text-success-600">
+                                        <i class="icon-stats-decline2 position-left"></i>
+                                        {{withdrawHis.Amount}}
+                                    </span>
+                                </td>
+                                <td style="width:15%;">
+                                    <span ng-switch="withdrawHis.Status">
+                                        <span ng-switch-when="0" class="label label-info">Not Confirmed</span>
+                                        <span ng-switch-when="1" class="label label-primary">Waiting for blockchain</span>
+                                        <span ng-switch-when="2" class="label label-danger">Complete</span>
+                                        <span ng-switch-when="3" class="label label-warning">-REJECTED-</span>
+                                    </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section script {
+    @Scripts.Render("~/front/js/btcwallet")
+}
+
+
+
+
