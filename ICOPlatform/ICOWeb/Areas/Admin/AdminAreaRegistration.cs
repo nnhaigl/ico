@@ -15,10 +15,11 @@ namespace ICOWeb.Areas.Admin
         public override void RegisterArea(AreaRegistrationContext context) 
         {
             context.MapRoute(
-                "Admin_default",
-                "Admin/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional }
-            );
+                    "Admin_default",
+                    "Admin/{controller}/{action}/{id}",
+                    new { controller = "Dashboard", action = "Index", id = UrlParameter.Optional },
+                    new[] { "ICOWeb.Areas.Admin.Controllers" }
+                );
         }
     }
 }

@@ -151,6 +151,7 @@
     <Compile Include="Controllers\GlobalController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MeController.cs" />
+    <Compile Include="Controllers\MemberController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -158,6 +159,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\app\front\Member\placement.js" />
+    <Content Include="Content\app\front\Member\tree.js" />
     <Content Include="Content\app\front\Me\dashboard.js" />
     <Content Include="Content\app\front\Me\profile.js" />
     <Content Include="Content\bootstrap-theme.css" />
@@ -4375,6 +4378,9 @@
     <Content Include="Views\Global\OpenSoon.cshtml" />
     <Content Include="Views\User\Register.cshtml" />
     <Content Include="Views\User\CompleteRegistration.cshtml" />
+    <Content Include="Views\Member\Placement.cshtml" />
+    <Content Include="Views\Member\ReferralLink.cshtml" />
+    <Content Include="Views\Member\Tree.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

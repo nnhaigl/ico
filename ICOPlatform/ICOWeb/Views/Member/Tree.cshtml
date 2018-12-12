@@ -1,0 +1,187 @@
+﻿@{
+    var currUsername = ICOWebCore.Context.ApplicationContext.CurrentUsername;
+}
+
+@section PageHeader {
+    <div class="page-header page-header-default">
+        <div class="breadcrumb-line">
+            <ul class="breadcrumb">
+                <li><a href="/me/dashboard"><i class="icon-home2 position-left"></i> Home</a></li>
+                <li class="active">Member</li>
+                <li class="active">Tree</li>
+            </ul>
+        </div>
+    </div>
+}
+<link rel="stylesheet" type="text/css" href="~/Content/global/css/tree-style.css">
+@section style {
+    <style type="text/css">
+        #themes {
+            font-size: 1.2em;
+        }
+
+        #set {
+            border: 2px solid #ddd;
+            padding: 2px;
+            background: #444;
+            width: 350px;
+            height: 40px;
+        }
+
+            #set a {
+                margin: 2px;
+                border: 1px solid #444;
+                float: left;
+            }
+
+                #set a:hover {
+                    border-color: #fff;
+                }
+
+        .tree > ul {
+            /*overflow-x: auto;*/
+        }
+
+        .row1 {
+            overflow-x: auto;
+            height: 700px;
+        }
+
+        .tree-image_1 {
+            width: 50px !important;
+            height: 50px !important;
+            border-radius: 15px !important;
+            border-color: red !important;
+        }
+
+        .ph-info {
+            background-color: #ddd;
+        }
+
+
+        /* --------------- Custom tree style ---------------- */
+        .ui-widget-header {
+            background-color: yellow;
+        }
+
+        .tree li .trcont {
+            border-radius: 0px;
+            box-shadow: none;
+            display: inline-block;
+            width: 80px;
+        }
+
+        .tree li {
+            padding: 15px 5px 0;
+        }
+
+        .ui-corner-bl {
+            cursor: pointer;
+        }
+
+        .img-sm {
+            height: 46px !important;
+            width: 46px !important;
+            margin-bottom: 3px;
+        }
+
+        .tree {
+            line-height: 1.15em;
+        }
+    </style>
+}
+
+<div class="row display-none2" ng-controller="memberTreeCtrl" ng-init="init();" id="divMemberTreeCtrl" cb-busy="promise">
+    @*<div class="col-lg-12">
+            <div class="row">
+                <div class="col-lg-1">
+                    <button onclick="backTree();" type="button" id="divBackTree" class="btn btn-primary display-none2">
+                        BACK TO
+                        <i class="glyphicon glyphicon-arrow-left"></i>
+                        <span id="backUsername"></span>
+                    </button>
+                </div>
+                <div class="col-lg-2"> &nbsp; </div>
+                <div class="col-lg-1">
+                    <button onclick="reInitTree();" type="button" id="btnBackToTop" class="btn btn-primary display-none2">
+                        BACK TO TOP
+                        <i class="glyphicon glyphicon-arrow-up"></i>
+                    </button>
+                </div>
+                <div class="col-lg-2"> &nbsp; </div>
+                <div class="col-lg-1">
+                    <button onclick="previousLevelClick();" id="previousTree" type="button" class="btn display-none2 ">
+                        PREVISOUS LEVEL
+                        <i class="glyphicon glyphicon-chevron-up"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <div id="tree">
+            </div>
+        </div>*@
+
+
+    <div class="panel panel-default network-tree-panel">
+        <div class="panel-body">
+            <div class="clearfix btn-holder" style="cursor: not-allowed;">
+                <a onclick="Top()" class="btn btn-success btn-sm pull-left" aria-label="Left Align" style="border-radius: 0;">
+                    <i class="icon-arrow-up16"></i>
+                    Scroll to top
+                </a>
+                @*<a href="javascript:void(0);" class="btn btn-danger btn-sm pull-left" style="border-radius: 0;" aria-label="Left Align" data-toggle="modal" data-target="#movePlacement">
+                        <i class="icon-search4"></i>
+                        Search
+                    </a>*@
+                <a onclick="Back()" id="topOne" class="btn btn-success btn-sm pull-right" style="border-radius: 0;display:none" aria-label="Right Align">
+                    Go one level up
+                    <i class="icon-arrow-up7" aria-hidden="true"></i>
+                </a>
+            </div>
+            <div class="network-tree-stucture" style="padding-bottom:40px;">
+
+
+            </div>
+
+            <div class="clearfix btn-holder">
+                <a onclick="Left()" class="btn btn-success btn-sm pull-left" style="border-radius: 0;" aria-label="Left Align">
+                    <i class="icon-arrow-down-left3"></i>
+                    First available position left
+                </a>
+                <a onclick="Right()" class="btn btn-success btn-sm pull-right" style="border-radius: 0;" aria-label="Right Align">
+                    First available position right
+                    <i class="icon-arrow-down-right3"></i>
+                </a>
+            </div>
+
+            <hr class="style-3 mb-20">
+            <div class="position-info-list">
+
+                <div class="user-type-28"><span class="">Non-Member</span></div>
+                <div class="user-type-41"><span class="">STAR</span></div>
+                <div class="user-type-3"><span class="">PREMIER</span></div>
+                <div class="user-type-4"><span class="">RUBY</span></div>
+                <div class="user-type-5"><span class="">EMERALD</span></div>
+                <div class="user-type-60"><span class="">DIAMOND</span></div>
+                <div class="status-22"><span class="">BLUE DIAMOND</span></div>
+                <div class="user-type-69"><span class="">ROYAL DIAMOND</span></div>
+                <div class="user-type-32"><span class="">ROYAL AMBASSADOR</span></div>
+                <div class="user-type-58"><span class="">CROWN AMBASSADOR</span></div>
+
+                <div class="free"><span class="">Free</span></div>
+                <div class="status-4"><span class="">Terminated</span></div>
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+@section script {
+    @Scripts.Render("~/front/js/member/tree")
+}
+

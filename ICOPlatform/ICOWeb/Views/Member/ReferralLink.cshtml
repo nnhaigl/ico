@@ -1,0 +1,28 @@
+﻿@using ICOWebCore.Utils;
+@using ICOWebCore.Context;
+@{
+    /**/
+
+    ViewBag.Title = "Index";
+    string referalLink = WebCoreUtils.GetBaseUrl() + "user/register/" + ApplicationContext.CurrentUsername;
+}
+
+@section PageHeader {
+    <div class="page-header page-header-default">
+        <div class="breadcrumb-line">
+            <ul class="breadcrumb">
+                <li><a href="/me/dashboard"><i class="icon-home2 position-left"></i> Home</a></li>
+                <li class="active">Member</li>
+                <li class="active">Referral Link</li>
+            </ul>
+        </div>
+    </div>
+}
+
+<div class="row" id="referralLinkCtrl">
+    <div class="col-lg-12 text-center text-semibold">
+        <span>
+            Please invite your friend via this link  <a target="_blank" href="@referalLink">@referalLink</a>
+        </span>
+    </div>
+</div>

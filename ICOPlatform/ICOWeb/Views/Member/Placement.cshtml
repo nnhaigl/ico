@@ -1,0 +1,293 @@
+﻿@using ICOWebCore.Utils;
+@using ICOWebCore.Context;
+@{
+    ViewBag.Title = "Index";
+    string referalLink = WebCoreUtils.GetBaseUrl() + "user/register/" + ApplicationContext.CurrentUsername;
+}
+
+@section PageHeader {
+    <div class="page-header page-header-default">
+        <div class="breadcrumb-line">
+            <ul class="breadcrumb">
+                <li><a href="/me/dashboard"><i class="icon-home2 position-left"></i> Home</a></li>
+                <li class="active">Member</li>
+                <li class="active">Placement</li>
+            </ul>
+        </div>
+    </div>
+}
+
+<div class="row" ng-controller="placeCtrl" ng-init="init();" id="placeCtrl" style="display:none;">
+
+    <div class="col-lg-12 text-center text-semibold">
+        <span>
+            Please invite your friend via this link  <a target="_blank" href="@referalLink">@referalLink</a>
+        </span>
+    </div>
+
+    <div class="col-lg-12" cb-busy="promise">
+        <div class="panel-body">
+            <div class="tabbable">
+                <ul class="nav nav-tabs nav-tabs-top nav-justified">
+                    <li class="active">
+                        <a href="#tab_user_pending" data-toggle="tab" aria-expanded="true">
+                            <i class="icon-arrow-right16"></i>
+                            PENDING
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="#tab_user_active" data-toggle="tab" aria-expanded="false">
+                            <i class="icon-loop3"></i>
+                            ACTIVE
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="#tab_user_complete" data-toggle="tab" aria-expanded="false">
+                            <i class="icon-checkmark"></i>
+                            COMPLETE
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="tab_user_pending">
+                        <div class="panel panel-flat">
+                            <div class="table-responsive">
+                                <table class="table text-nowrap">
+                                    <tbody>
+                                        <tr class="active border">
+                                            <td colspan="5">Pending Users</td>
+                                            <td class="text-right">
+                                                <span class="progress-meter" id="today-progress" data-progress="30"></span>
+                                            </td>
+                                        </tr>
+                                        <tr ng-repeat="item in pendingUsers track by $index" ng-dblclick="placeUser(item)" class="ng-scope">
+                                            <td>
+                                                <div class="media-left media-middle">
+                                                    <a href="#" class="btn bg-success btn-rounded btn-icon btn-xs ng-scope">
+                                                        <span class="letter-icon">P</span>
+                                                    </a>
+                                                </div>
+                                                <div class="media-left">
+                                                    <div class="">
+                                                        <a href="#" class="text-default text-semibold">
+                                                            {{item.Username}}
+                                                        </a>
+                                                    </div>
+                                                    <div class="text-muted text-size-small">
+                                                        <span class="status-mark border-blue position-left"></span>
+                                                        <span ng-bind="item.CreatedDate | date:'dd/MM/yyyy'" class="ng-binding"></span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <span class="text-muted ng-binding">
+                                                    {{item.Email}}
+                                                </span>
+                                                <br>
+                                                <a href="#" class="label label-rounded border-primary text-primary-600 ng-binding">
+                                                    Personal Identification : {{item.PID}}
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <i class="icon-pin text-size-small"></i>
+                                                <span>{{item.CountryCode}}  {{item.Country}} </span>
+                                                <br />
+                                                <div class="text-muted text-size-small">
+                                                    <span>{{item.Address}}</span>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                @*<button ng-click="placeLeft(item);" type="button" class="btn btn-primary ">
+                                                        Left <i class="glyphicon glyphicon-chevron-left"></i>
+                                                    </button>
+                                                    <button ng-click="placeRight(item);" type="button" class="btn btn-primary ">
+                                                        Right <i class="glyphicon glyphicon-chevron-right"></i>
+                                                    </button>*@
+                                                <label ng-click="placeLeft(item);" title="Place left side" style="z-index:1000">
+                                                    <a href="javascript:;" class="btn border-primary text-primary btn-flat btn-rounded btn-icon btn-xs" data-popup="popover" title="" data-trigger="hover" data-content="And here's some amazing content. It's very engaging. Right?" data-original-title="Popover title">
+                                                        <i class="glyphicon glyphicon-chevron-left"></i>
+                                                    </a>
+                                                </label>
+                                                <label ng-click="placeRight(item);" title="Place right side">
+                                                    <a href="javascript:;" class="btn border-primary text-primary btn-flat btn-rounded btn-icon btn-xs">
+                                                        <i class="glyphicon glyphicon-chevron-right"></i>
+                                                    </a>
+                                                </label>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="tab_user_active">
+                        <div class="tab-pane active" id="tab_user_pending">
+                            <div class="panel panel-flat">
+                                <div class="table-responsive">
+                                    <table class="table text-nowrap">
+                                        <tbody>
+                                            <tr class="active border">
+                                                <td colspan="5">Active Users</td>
+                                                <td class="text-right">
+                                                    <span class="progress-meter" id="today-progress" data-progress="30"></span>
+                                                </td>
+                                            </tr>
+                                            <tr ng-repeat="item in activeUsers track by $index" ng-dblclick="placeUser(item)" class="ng-scope">
+                                                <td>
+                                                    <div class="media-left media-middle">
+                                                        <a href="#" class="btn bg-blue btn-rounded btn-icon btn-xs">
+                                                            <span class="letter-icon">A</span>
+                                                        </a>
+                                                    </div>
+                                                    <div class="media-left">
+                                                        <div class="">
+                                                            <a href="#" class="text-default text-semibold">
+                                                                {{item.Username}}
+                                                            </a>
+                                                        </div>
+                                                        <div class="text-muted text-size-small">
+                                                            <span class="status-mark border-blue position-left"></span>
+                                                            <span ng-bind="item.CreatedDate | date:'dd/MM/yyyy'" class="ng-binding"></span>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <span class="text-muted ng-binding">
+                                                        {{item.Email}}
+                                                    </span>
+                                                    <br>
+                                                    <a href="#" class="label label-rounded border-primary text-primary-600 ng-binding">
+                                                        Personal Identification : {{item.PID}}
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <i class="icon-pin text-size-small"></i>
+                                                    <span>{{item.CountryCode}}  {{item.Country}} </span>
+                                                    <br />
+                                                    <div class="text-muted text-size-small">
+                                                        <span>{{item.Address}}</span>
+                                                    </div>
+                                                </td>
+                                                <td></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="tab_user_complete">
+                        <div class="tab-pane active" id="tab_user_pending">
+                            <div class="panel panel-flat">
+                                <div class="table-responsive">
+                                    <table class="table text-nowrap">
+                                        <tbody>
+                                            <tr class="active border">
+                                                <td colspan="5">Completed Users</td>
+                                                <td class="text-right">
+                                                    <span class="progress-meter" id="today-progress" data-progress="30"></span>
+                                                </td>
+                                            </tr>
+                                            <tr ng-repeat="item in completeUsers track by $index" ng-dblclick="placeUser(item)" class="ng-scope">
+                                                <td>
+                                                    <div class="media-left media-middle">
+                                                        <a href="#" class="btn bg-warning-400 btn-rounded btn-icon btn-xs">
+                                                            <span class="letter-icon">C</span>
+                                                        </a>
+                                                    </div>
+                                                    <div class="media-left">
+                                                        <div class="">
+                                                            <a href="#" class="text-default text-semibold">
+                                                                {{item.Username}}
+                                                            </a>
+                                                        </div>
+                                                        <div class="text-muted text-size-small">
+                                                            <span class="status-mark border-blue position-left"></span>
+                                                            <span ng-bind="item.CreatedDate | date:'dd/MM/yyyy'" class="ng-binding"></span>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <span class="text-muted ng-binding">
+                                                        {{item.Email}}
+                                                    </span>
+                                                    <br>
+                                                    <a href="#" class="label label-rounded border-primary text-primary-600 ng-binding">
+                                                        Personal Identification : {{item.PID}}
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <i class="icon-pin text-size-small"></i>
+                                                    <span>{{item.CountryCode}}  {{item.Country}} </span>
+                                                    <br />
+                                                    <div class="text-muted text-size-small">
+                                                        <span>{{item.Address}}</span>
+                                                    </div>
+                                                </td>
+                                                <td></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- placement form -->
+    <div id="modal_placement" class="modal fade" cb-busy="promise2">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content login-form">
+                <!-- Form -->
+                <div class="modal-body">
+                    <div class="text-center">
+                        <div class="icon-object border-warning text-warning">
+                            <i class=" icon-tree6"></i>
+                        </div>
+                        <h5 class="content-group">
+                            Place <span class="text-semibold color-red">{{placeUserInfo.Username}}</span> to tree system.
+                            <small class="display-block">Please enter username to place new member</small>
+                        </h5>
+                    </div>
+                    <div class="form-group has-feedback">
+                        <input ng-model="userToPlace.UserToPlaceInto" type="text" class="form-control" placeholder="Username to place into">
+                        <span ng-repeat="item in errorMessages" class="field-validation-error">{{item.ErrorMessage}}</span>
+                        <div class="form-control-feedback">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+
+                            @*<label data-ng-repeat="choice in positions.choices">
+                                    <input type="radio" name="response" data-ng-model="choice.isSelected" data-ng-value="true" ng-click="setPosition(choice)" />
+                                    {{choice.text}}
+                                </label>*@
+                            @*<label class="checkbox-inline">
+                                    <div class="checker"><span class="checked"><input class="styled" checked="checked" type="checkbox"></span></div>
+                                    Left side
+                                </label>*@
+                        </div>
+
+                    </div>
+                    <div class="row">&nbsp;</div>
+                    <button ng-click="doPlaceUser();" type="submit" class="btn bg-blue btn-block">
+                        Place <span ng-show="userToPlace.Position == 1">Left</span>
+                        <span ng-show="userToPlace.Position == 2">Right</span>
+                        <i class="icon-circle-right2 position-right"></i>
+                    </button>
+                    <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Cancel</button>
+                </div>
+                <!-- /form -->
+            </div>
+        </div>
+    </div>
+    <!--  /placement form -->
+</div>
+
+@section script {
+    @Scripts.Render("~/front/js/member/placement")
+}

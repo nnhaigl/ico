@@ -85,6 +85,7 @@
     <Compile Include="Filters\WebAPIAuthenticateFilterAttribute.cs" />
     <Compile Include="Filters\WebAPIExceptionFilterAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\WebCoreUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ICOCore\ICOCore.csproj">
