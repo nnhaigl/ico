@@ -17,7 +17,8 @@
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
-    <Use64BitIISExpress>false</Use64BitIISExpress>
+    <Use64BitIISExpress>
+    </Use64BitIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -4372,6 +4373,8 @@
     <Content Include="Views\Global\InternalServerError.cshtml" />
     <Content Include="Views\Global\NotFound.cshtml" />
     <Content Include="Views\Global\OpenSoon.cshtml" />
+    <Content Include="Views\User\Register.cshtml" />
+    <Content Include="Views\User\CompleteRegistration.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

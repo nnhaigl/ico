@@ -1,0 +1,359 @@
+﻿@{
+    Layout = "~/Views/Shared/_layout2.cshtml";
+
+    string introduceUsername = ViewBag.IntroduceUsername;
+    var isInProduction = BizzCore.Infrastructures.Constants.CommonConstants.IS_IN_PRODUCTION;
+}
+
+
+<div id="register_form" class="login-container display-none2" ng-app="userRegisterApp" ng-controller="userRegisterCtrl" ng-init="init();" ng-keypress="keyPressEvt($event)" cg-busy="promise">
+
+    <div class="row text-center display-none2" id="divSuccess">
+        <div class="alert alert-primary alert-bordered">
+            <span class="text-semibold">Registration successfully , please check your mailbox to complete !</span>
+            <br />
+            <a href="/" class="btn btn-default btn-block content-group">
+                <i class="glyphicon glyphicon-arrow-left"></i>
+                Back to home page
+            </a>
+
+            <a href="/user/login" class="btn btn-default btn-block content-group">
+                <i class="glyphicon glyphicon-arrow-right"></i>
+                Login
+            </a>
+        </div>
+    </div>
+
+    <!-- Register form -->
+    <div class="row" id="formRegister">
+        <div class="col-lg-4"></div>
+        <div class="col-lg-4">
+            <div class="tab-pane" id="tab_btc_wallet_send">
+                <div class="panel panel-flat">
+                    @*<div class="panel-heading">
+                            <h5 class="panel-title text-semibold">
+                                Wallet BTC Withdraw
+                            </h5>
+                        </div>*@
+                    <div class="panel-body">
+                        @*<p class="content-group">
+                                <code>
+                                    You're able to withdraw <span class="text-danger text-semibold">0.013 BTC</span>
+                                </code>
+                            </p>*@
+                        <form class="form-horizontal" action="#" autocomplete="off">
+                            <fieldset class="content-group">
+                                <legend class="text-bold text-center">New Coin Club - Registration</legend>
+                                <div class="form-group">
+                                    <div class="col-lg-12">
+                                        <div class="input-group ">
+                                            <span class="input-group-addon">
+                                                <i class="glyphicon glyphicon-user"></i>
+                                            </span>
+                                            <input ng-model="regisInfo.Username" id="field_Username" class="form-control" placeholder="Username (use to login)" type="text">
+                                        </div>
+                                        <span ng-repeat="item in errorMessages" class="field-validation-error ng-cloak" ng-if="item.PropertyName=='Username'">{{item.ErrorMessage}}</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-lg-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="glyphicon glyphicon-globe"></i>
+                                            </span>
+                                            <select class="form-control " id="field_CountryCode" ng-model="regisInfo.CountryCode" ng-options="co.Code as co.Name for co in countries"></select>
+                                            @*<input ng-model="regisInfo.Country" id="field_Country" class="form-control" placeholder="Your Full Name" type="text">*@
+                                        </div>
+                                        <span ng-repeat="item in errorMessages" class="field-validation-error ng-cloak" ng-if="item.PropertyName=='CountryCode'">{{item.ErrorMessage}}</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-lg-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="glyphicon glyphicon-info-sign"></i>
+                                            </span>
+                                            <input ng-model="regisInfo.FullName" id="field_FullName" class="form-control" placeholder="Your Full Name" type="text">
+                                        </div>
+                                        <span ng-repeat="item in errorMessages" class="field-validation-error ng-cloak" ng-if="item.PropertyName=='FullName'">{{item.ErrorMessage}}</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-lg-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="glyphicon glyphicon-info-sign"></i>
+                                            </span>
+                                            <input ng-model="regisInfo.City" id="field_City" class="form-control" placeholder="City / State" type="text">
+                                        </div>
+                                        <span ng-repeat="item in errorMessages" class="field-validation-error ng-cloak" ng-if="item.PropertyName=='City'">{{item.ErrorMessage}}</span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-lg-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="glyphicon glyphicon-globe"></i>
+                                            </span>
+                                            <input ng-model="regisInfo.PID" id="field_PID" class="form-control" placeholder=" National ID / Driving ID / Passport No" type="text">
+                                        </div>
+                                        <span ng-repeat="item in errorMessages" class="field-validation-error ng-cloak" ng-if="item.PropertyName=='PID'">{{item.ErrorMessage}}</span>
+                                    </div>
+                                </div>
+                                <div class="form-group ">
+                                    <div class="col-lg-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="icon-key"></i>
+                                            </span>
+                                            <input ng-model="regisInfo.Password" id="field_Password" class="form-control" placeholder="Password" type="password">
+                                        </div>
+                                        <span ng-repeat="item in errorMessages" class="field-validation-error ng-cloak" ng-if="item.PropertyName=='Password'">{{item.ErrorMessage}}</span>
+                                        <span class="help-block">
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="icon-notification2"></i>
+                                            For security, please choose strong password
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="form-group ">
+                                    <div class="col-lg-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="icon-key"></i>
+                                            </span>
+                                            <input ng-model="regisInfo.ConfirmPassword" id="field_ConfirmPassword" class="form-control" placeholder="Password Confirmation" type="password">
+                                        </div>
+                                        <span ng-repeat="item in errorMessages" class="field-validation-error ng-cloak" ng-if="item.PropertyName=='ConfirmPassword'">{{item.ErrorMessage}}</span>
+                                    </div>
+                                </div>
+                                <div class="form-group ">
+                                    <div class="col-lg-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="icon-envelop5"></i>
+                                            </span>
+                                            <input ng-model="regisInfo.Email" id="field_Email" class="form-control" placeholder="Must be valid email address" type="text">
+                                        </div>
+                                        <span ng-repeat="item in errorMessages" class="field-validation-error ng-cloak" ng-if="item.PropertyName=='Email'">{{item.ErrorMessage}}</span>
+                                        <span id="sp_error_email" class="field-validation-error ng-cloak display-none2">Invalid email address.</span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group ">
+                                    <div class="col-lg-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="glyphicon glyphicon-arrow-right"></i>
+                                            </span>
+                                            <input class="form-control" ng-model="regisInfo.ReferralUsername" disabled type="text">
+                                        </div>
+                                        <span class="help-block">
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="glyphicon glyphicon-user"></i>
+                                            Name of the person who introduced you.Can not change.
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-lg-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="glyphicon glyphicon-calendar"></i>
+                                            </span>
+                                            <input ng-model="regisInfo.DOB" id="field_DOB" class="form-control" placeholder="Date of birth (DD/MM/YYY) ex : 14/01/1990" type="text">
+                                        </div>
+                                        <span ng-repeat="item in errorMessages" class="field-validation-error ng-cloak" ng-if="item.PropertyName=='DOB'">{{item.ErrorMessage}}</span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-lg-12">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="glyphicon glyphicon-off"></i>
+                                            </span>
+                                            <select ng-model="regisInfo.GenderTemp" id="field_GenderTemp" class="form-control">
+                                                <option value="">-- Select Gender --</option>
+                                                <option value="true">MALE</option>
+                                                <option value="false">FEMALE</option>
+                                            </select>
+                                        </div>
+                                        <span ng-repeat="item in errorMessages" class="field-validation-error ng-cloak" ng-if="item.PropertyName=='GenderTemp'">{{item.ErrorMessage}}</span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-lg-1 text-semibold"></label>
+                                    <label class="control-label col-lg-10 text-semibold">
+                                        I have read the Terms and condition and I am fully aware of the risks
+                                        and agree to participate in <span class="text-danger">NewCoinClub</span> with my own free will.
+                                    </label>
+                                    <label class="control-label col-lg-1 text-semibold"></label>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-lg-4 text-semibold">
+                                    </label>
+                                    <label class="control-label col-lg-8 text-semibold">
+                                        <div class="checkbox">
+                                            <label>
+                                                <div class="checker border-indigo-600 text-indigo-800">
+                                                    <span class="checked">
+                                                        <input class="control-custom" checked="checked" type="checkbox">
+                                                    </span>
+                                                </div>
+                                                I Agree
+                                            </label>
+                                        </div>
+                                    </label>
+                                </div>
+                                @if (isInProduction)
+                                {
+                                    <div class="form-group">
+                                        <div class="col-lg-12">
+                                            <div class="form-group has-feedback has-feedback-left" id="field_Recaptcha">
+                                                <div class="g-recaptcha"
+                                                     data-sitekey="6Ld1YgkUAAAAAFLjY1m2j9aJ7YPxyUTtaxiLTyV5"></div>
+                                                <br />
+                                                <span ng-repeat="item in errorMessages" class="field-validation-error ng-cloak" ng-if="item.PropertyName=='Recaptcha'">{{item.ErrorMessage}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                <div class="form-group">
+                                    <label class="control-label col-lg-6"></label>
+                                    <div class="col-lg-6">
+                                        <button ng-click="doRegis();" type="button" class="btn btn-primary ">
+                                            SUBMIT
+                                            <i class="icon-arrow-right14 position-right"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-default btn-ladda btn-ladda-spinner ladda-button" data-spinner-color="#333" data-style="slide-down">
+                                            <span class="ladda-label">Reset</span><span class="ladda-spinner"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4"></div>
+    </div>
+    <!-- /Register form -->
+</div>
+
+@section script {
+    @*@Scripts.Render("~/front/js/user/register")*@
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+    <script>
+        var loginModule = angular.module('userRegisterApp', ["cgBusy"]);
+
+        //loginModule.controller("userRegisterCtrl", function ($scope, $http, $sce, $q, $window, $timeout) {
+        loginModule.controller('userRegisterCtrl', ['$scope', '$http', '$sce', '$q', '$window', '$filter', '$timeout'
+            , function ($scope, $http, $sce, $q, $window, $filter, $timeout) {
+
+                $scope.promise = null; // show loading
+                $scope.message = "";
+                $scope.errorMessages = null;
+                $scope.isRegisOK = false;
+                $scope.countries = [];
+
+                $scope.regisInfo = {
+                    Username: '',
+                    FullName: '',
+                    PID: '',
+                    Email: '',
+                    Gender: '',
+                    DateOfBirth: '',
+                    Password: '',
+                    ConfirmPassword: '',
+                    DOB: '',
+                    ReferralUsername: '',
+                    CountryCode: '',
+                    City: '',
+                    GenderTemp: '',
+                    recaptcha: ''
+                };
+
+                $timeout(function () {
+                    $("#register_form").show('slow');
+                }, 50);
+
+                $scope.init = function () {
+                    $scope.regisInfo.ReferralUsername = '@introduceUsername';
+                    $scope.getAlCountires();
+                };
+
+                $scope.getAlCountires = function () {
+                    $scope.countries = [];
+                    $scope.promise = $http.get("/bizzApi/common/Countries")
+                     .success(function (data) {
+                         if (data.IsSuccess) {
+
+                             var defaultCountry = { Code: '', Id: -1, Name: '-- Select your country', PhoneCode: '', Status: 0 };
+                             //$scope.countries.push(defaultCountry);
+                             $scope.countries = data.Data;
+                         }
+                     });
+                };
+
+                $scope.keyPressEvt = function (keyEvent) {
+                    if (keyEvent.which === 13)
+                        $scope.doRegis();
+                }
+
+                $scope.doRegis = function () {
+                    $scope.message = "";
+                    $('#sp_error_gender').hide();
+                    $('#sp_error_email').hide();
+                    $('.has-warning').removeClass('has-warning');
+
+                    // check email
+                    if (!validateEmail($scope.regisInfo.Email)) {
+                        $('#sp_error_email').show();
+                        $('#field_Email').focus();
+                        $('#field_Email').parent('.input-group').addClass('has-warning');
+                        //$('html, body').animate({ scrollTop: $('#field_Email').offset().top - 100 }, 'slow');
+                        //$('body').animate({
+                        //    scrollTop: $('#field_Email').position().top
+                        //}, 'slow');
+                        return;
+                    }
+
+                    var g_recaptcha_response = $('#g-recaptcha-response').val();
+                    $scope.regisInfo.recaptcha = g_recaptcha_response;
+
+                    $scope.promise = $http.post("/bizzApi/user/Register", $scope.regisInfo)
+                    .success(function (data) {
+                        if (data.IsSuccess) {
+                            if (!data.IsValid) {
+                                $scope.errorMessages = data.PropertyErrors;
+                                var firstFieldError = $scope.errorMessages[0].PropertyName;
+                                var firstFieldId = "field_" + firstFieldError;
+                                //if (firstFieldId != "field_Recaptcha") {
+                                $('#' + firstFieldId).focus();
+                                $('#' + firstFieldId).parent('.input-group').addClass('has-warning');
+                                //$('html, body').animate({ scrollTop: $('#' + firstFieldId).offset().top - 100 }, 'slow');
+                                //$('body').animate({
+                                //    scrollTop: $('#' + firstFieldId).position().top
+                                //}, 'slow');
+                                //}
+                            } else {
+                                showSuccess("Registration successfully , Please check your mailbox !");
+                                //$scope.isRegisOK = true;
+                                $("div#formRegister").css('display', 'none');
+                                $("div#divSuccess").css('display', 'block');
+                            }
+                        } else {
+                            $window.location.href = '/global/internalServerError';
+                        }
+                    })
+                    .error(function (data, status, headers, config) {
+
+                    });
+                };
+            }]);
+    </script>
+}

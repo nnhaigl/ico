@@ -1,0 +1,51 @@
+﻿@{
+    Layout = "~/Views/Shared/_layout2.cshtml";
+
+    ViewBag.Title = "Complete Registration";
+    string username = ViewBag.Username;
+    int result = ViewBag.Result;
+
+}
+
+<div class="text-center content-group">
+    <h1 class="error-title"></h1>
+    <h5></h5>
+    @if (result == 1)
+    {
+        <div class="alert alert-warning alert-bordered">
+            <span class="text-semibold">Time for confirmation has been expired , Please Recheck your email !</span>
+        </div>
+    }
+    else if (result == 2)
+    {
+        <div class="alert alert-warning alert-bordered">
+            <span class="text-semibold">Invalid Confirmation</span>
+        </div>
+    }
+</div>
+
+<div class="row">
+    <div class="col-lg-4 col-lg-offset-4 col-sm-6 col-sm-offset-3">
+        <form action="#" class="main-search">
+            <div class="row">
+                <div class="col-sm-12">
+                    <a href="/" class="btn btn-default btn-block content-group">
+                        <i class="glyphicon glyphicon-arrow-left"></i>
+                        Back to home page
+                    </a>
+
+                    <a href="/user/login" class="btn btn-default btn-block content-group">
+                        <i class="glyphicon glyphicon-arrow-left"></i>
+                        Login
+                    </a>
+                </div>
+                @*<div class="col-sm-6">
+                        <a href="#" class="btn btn-primary btn-block content-group">
+                            <i class="glyphicon glyphicon-arrow-right"></i>
+                            Resend confirmation
+                        </a>
+                    </div>*@
+            </div>
+        </form>
+    </div>
+</div>

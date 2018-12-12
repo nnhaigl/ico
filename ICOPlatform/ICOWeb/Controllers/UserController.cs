@@ -9,6 +9,7 @@ using System.Net;
 using Newtonsoft.Json;
 using ICOCore.Entities.Extra;
 using System.Web.Security;
+using ICOCore.Repositories;
 
 namespace ICOWeb.Controllers
 {
@@ -91,6 +92,65 @@ namespace ICOWeb.Controllers
             }
 
             return Json(new { IsSuccess = result });
+        }
+
+        public ActionResult Register(string id) // id = username người giới thiệu
+        {
+            string username = id;
+            UserService userInfoService = new UserService();
+            if (!userInfoService.IsUsernameExisted(username))
+                return Redirect("/");
+
+            ViewBag.IntroduceUsername = username;
+            // logout
+            ApplicationContext.Logout();
+            return View();
+        }
+
+
+        public ActionResult CompleteRegistration(string id, string checksum) //id = username
+        {
+            try
+            {
+                string username = id;
+                string hasedInfo = checksum;
+                if (!string.IsNullOrWhiteSpace(hasedInfo))
+                {
+                    hasedInfo = hasedInfo.Replace(" ", "+");
+                }
+                int result = 0; // invalid
+                string message = string.Empty;
+
+                UserService _service = new UserService();
+                Account acc = _service.GetAccount(username);
+
+                if (acc.HashKey != null && acc.HashKey.Equals(hasedInfo))
+                {
+                    DateTime now = DateTime.Now;
+                    if ((now - acc.RequestConfirmDate).TotalMinutes > CommonConstants.REGISTER_VALID_WITHIN_MINUTES)
+                    {
+                        // hết hạn => gửi mail lại
+                        result = 1;
+                        _service.ReSendRegisMail(username);
+                    }
+                    else
+                    {
+                        // complete regis
+                        _service.CompleteRegistration(username);
+                        return RedirectToAction("Login", "User");
+                    }
+                }
+
+                ViewBag.Result = result;
+                ViewBag.Username = username;
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex);
+                return RedirectToAction("InternalServerError", "Global");
+            }
+
+            return View();
         }
 
     }
